@@ -1,0 +1,10 @@
+/* Based on the Man Page terminal setting on OSX */
+body {
+    font-size: 12px
+    color: #000000;
+    background-color: #FEF49C;
+}
+h1 {
+    font-size: 3em;
+}
+
