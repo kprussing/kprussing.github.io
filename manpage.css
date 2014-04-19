@@ -1,10 +1,74 @@
 /* Based on the Man Page terminal setting on OSX */
 body {
+    font-family: "Monaco", "Lucida Console", "Courier New", monospace;
     font-size: 12px
-    color: #000000;
-    background-color: #FEF49C;
-}
-h1 {
-    font-size: 3em;
+    color: rgb(0,0,0);
+    /*background-color: rgb(254,244,156);*/
 }
 
+/* Basic colors */
+p.black{
+    font-color: rgb(  0,  0,  0);
+}
+p.red{
+    font-color: rgb(153,  0,  0);
+}
+p.green{
+    font-color: rgb(  0,166,  0);
+}
+p.yellow{
+    font-color: rgb(153,153,  0);
+}
+p.blue{
+    font-color: rgb(  0,  0,178);
+}
+p.magenta{
+    font-color: rgb(178,  0,178);
+}
+p.cyan{
+    font-color: rgb(  0,166,178);
+}
+p.white{
+    font-color: rgb(191,191,191);
+}
+
+/* Bold colors */
+p.bright_black{
+    font-color: rgb(102,102,102);
+}
+p.bright_red{
+    font-color: rgb(229,  0,  0);
+}
+p.bright_green{
+    font-color: rgb(  0,217,  0);
+}
+p.bright_yellow{
+    font-color: rgb(229,229,  0);
+}
+p.bright_blue{
+    font-color: rgb(  0,  0,255);
+}
+p.bright_magenta{
+    font-color: rgb(229,  0,229);
+}
+p.bright_cyan{
+    font-color: rgb(  0,229,229);
+}
+p.bright_white{
+    font-color: rgb(229,229,229);
+}
+
+/*h1 {
+    font-size: 3em;
+}
+*/
+
+.d_term{
+    font-family: "Monaco", "Lucida Console", "Courier New", monospace;
+    font-size: 12px
+    color: rgb(0,0,0);
+    background-color: rgb(254,244,156);
+    width: 780px;
+    height: 380px;
+    float: center;
+}
