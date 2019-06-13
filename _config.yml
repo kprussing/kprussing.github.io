@@ -22,13 +22,12 @@ footer-links:
   facebook: 
   flickr: 
   github: kprussing
-  google: +KeithPrussing
   instagram: 
   linkedin: kprussing
   pinterest: 
   rss: # just type anything here for a working RSS icon, make sure you set the "url" above!
   twitter:
-  stackoverflow: # your stackoverflow profile, e.g. "users/50476/bart-kiers"
+  stackoverflow: https://stackexchange.com/users/4923114/keith-prussing # your stackoverflow profile, e.g. "users/50476/bart-kiers"
 
 # Your disqus shortname, entering this will enable commenting on posts
 disqus: 
