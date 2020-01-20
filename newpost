@@ -1,0 +1,83 @@
+#!/bin/bash
+
+function usage() {
+    echo usage: `basename $0` [-h] -[f] [-d DIR] [POST]
+    echo
+    fmt <<- _EOF_
+	Create a new post template named for POST in the posts directory
+	DIR.  Note, the given POST should not contain spaces.
+	_EOF_
+    echo
+    echo Options
+    echo '  -h  Show this help and exit'
+    echo '  -f  Overwrite the file if it exists'
+    echo "  -d  Set the post directory. Default 'posts'"
+}
+
+force=false
+postdir=`dirname $0`/posts
+while getopts d:fh opt
+do
+    case "$opt" in
+        d)
+            postdir=$OPTARG
+            ;;
+        f)
+            force=true
+            ;;
+        h)
+            usage
+            exit;;
+        *)
+            1>&2 usage
+            exit 1;;
+    esac
+done
+
+shift `echo $OPTIND - 1 | bc`
+
+if ! test -z "$1"
+then
+    POST=`echo "$1" | tr [A-Z] [a-z]`
+else
+    POST=new-post
+fi
+if ! `echo $POST | awk '{if (NF > 1) {exit 1}}'`
+then
+    1>&2 echo "Received '$POST'! POST should not contain spaces!"
+    exit 1
+fi
+POST=`date +%Y-%m-%d`-$POST.tex
+
+if ! test -d "$postdir"
+then
+    1>&2 echo Post directory "$postdir" does not exist!
+    exit 1
+fi
+
+if test -f "$postdir/$POST" && ! $force
+then
+    1>&2 echo Post file "$postdir/$POST" exists! Use -f to overwrite
+    exit 1
+fi
+
+cat << _EOF_ > "$postdir/$POST"
+\\documentclass{article}
+\\input{../../preamble}
+\\addbibresource{../../references.bib}
+\\begin{document}
+\\author{Keith F Prussing, Ph.D.}
+\\DTMsavenoparsedate{current}{`date +%Y`}{`date +%m`}{`date +%d`}{-1}
+\\blogtitle{Post title goes here}
+\\date{\\today}
+\\iftoggle{is book}{}{\\maketitle}
+
+\\begin{abstract}
+The abstract goes here.  You might want to add the post to the overall
+build.
+\\end{abstract}
+
+Post text goes here
+
+\\end{document}
+_EOF_
