@@ -1,0 +1,26 @@
+# This is a comment and it is ignored.  The basic format of a property
+# is a unique name following the C style variable naming rules but case
+# insensitive and including '-'.  The simplest property is a key
+# followed by a colon followed by a floating point number.
+var1:1.0
+
+# The usual format specifiers for floats are understood and spaces are
+# generally ignored.
+VAR2    :	2e3
+  vaR3      :4E-3   # And comments my be after the data.
+
+# A scalar can have two optional fields: the string 'scalar' and the
+# number of values associated with the property.  These are separated
+# with ':'.  Specifying the number of values is useful for a property
+# that is really a collection of specific values like parameters for a
+# reflection model.
+
+reflectance:scalar:0.5
+phong:scalar:2:1.0 2.0 # Multiple values are separated by white space
+
+# The final property is a string property.  These require the 'string'
+# type and follow the C style variable naming convention with the
+# inclusion of '-'.
+a-string:string: this-is-a-string
+#a-bad-string: missing-the-type
+

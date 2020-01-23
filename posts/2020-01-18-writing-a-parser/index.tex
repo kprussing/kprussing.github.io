@@ -1,0 +1,270 @@
+\documentclass{article}
+\input{../../preamble}
+\addbibresource{../../references.bib}
+\begin{document}
+\author{Keith F Prussing, Ph.D.}
+\DTMsavenoparsedate{current}{2020}{01}{18}{-1}
+\blogtitle{Writing a Data File Parser with Flex and Bison}
+\date{\today}
+\iftoggle{is book}{}{\maketitle}
+
+\begin{abstract}
+    So you want to write a parser for a data file for C/C++.  You have a
+    plan for a data layout and know it will change slowly.  You have
+    read The Art of Unix Programming~\cite{raymond_art_2003} and know a
+    plain text format is the best option.  You could hand roll a parser,
+    but you are worried about version drift when you need to add a new
+    field to the data entry.  Thus, you have decided to use Bison and
+    Flex, like a good programmer (a.k.a.  procrastinator), but you do
+    not know these tools.  You go to Google only to find that most of
+    the tutorials and examples focus on calculators or programming
+    languages.  This entry is a walk through of setting up Bison and
+    Flex to parse a data file.
+\end{abstract}
+
+\section{Problem Statement}
+
+The basic problem is we want to pull data from a file.  In the program,
+we want to represent the data as a hash table of objects that could be a
+string for keying other details (like a rendering model) or a sequence
+of floats.  The main program is written in C++ and we do not want to add
+the overhead of adding Haskell as a language dependency, even though it
+would give us a clean way to deal with missing data.  Instead, we define
+the internal storage using a \lstinline[language=C++]{std::map} and a
+new \lstinline[language=C]{struct}\footnote{The full source for shit
+post is available on \href{https://github.com/kprussing/kprussing.github.io/tree/latex-migration/posts/2020-01-18-writing-a-parser}{github}.}
+
+\begin{lstlisting}[language=C]
+#include <map>
+#include <string>
+#include <vector>
+
+typedef enum Type {
+    Nothing,
+    String,
+    Floats
+} Type;
+
+typedef struct Datum {
+    Type                type;
+    std::string         string;
+    std::vector<float>  data;
+} Datum;
+
+std::map<std::string, Datum> database;
+\end{lstlisting}
+
+Looking at this representation, we see a few important points.  First,
+the data are keyed by a unique string.  Second, we need a field to
+toggle string versus floating point data.  And third, the data can be of
+arbitrary length.  To be nice, we would like to allow the user
+optionally specify the length of the floating point data for validating
+data, and we would like the default behavior to be reading a single
+floating point value if no toggle string is given.  This leads us to a
+regular expression representation of the form:
+
+\begin{lstlisting}[language=Python]
+'(?P<uid>\w+):(?:string|float(?:[:](?P<len>\d+))?):(?P<vals>.*)'
+\end{lstlisting}
+
+For a few other niceties, we would like to:
+
+\begin{itemize}
+    \item   Allow comments to the end of line after the \lstinline{#}
+        for anything other than the string values.
+    \item   Ignore case in the unique id (\lstinline{uid}) to avoid easy
+        editor bobbles.
+    \item   Ignore white space around the field separator
+        (\lstinline{:}).
+    \item   And allow the trailing floating point values to span lines.
+\end{itemize}
+
+\section{Lexical Analysis with Flex}
+
+Flex~\cite{westes_flex_2001} is the lexical analyzer
+replacing the venerable \lstinline{lex}.  Its task is to evaluate
+sequences of characters and perform a task (most commonly return a
+token).  Flex uses regular expressions to identify the tokens (yay!),
+but it know extended regular expressions not Perl style regular
+expressions (boo…).  That means we need to add a two more constraints
+because the grouping task harder for strings:
+
+\begin{itemize}
+    \item   Unique ids cannot contain spaces.  They must be valid C
+        style identifiers (plus \lstinline{-}).
+    \item   The string value cannot contain spaces.
+\end{itemize}
+
+Our first task is to come to grips with Flex.  We can follow along with
+the tutorial by verBurg~\cite{verburg_flex_2018} to build the
+functionality.  Adapting the first Flex example we have
+
+\begin{code block}
+    \lstinputlisting[language=C, style=inputs]{flex-only/flex-only.l}
+\end{code block}
+
+We have two major changes compared to the example in the tutorial.
+First, we abstracted the definition of a floating point value to shorten
+the regular expression in the token definitions.  This allows us to
+accept the common ways to write a floating point value.  Second, we
+introduced the comment character \lstinline{#} to add comments to the
+end of line.  To build, we could do things by hand, but a better
+solution is to use CMake~\cite{kitware_cmake_2019}.  The
+\lstinline{CMakeLists.txt} for our simple project starts out with:
+
+\begin{code block}
+    \lstinputlisting[style=inputs]{flex-only/CMakeLists.txt}
+\end{code block}
+
+The important point to note is the use of \lstinline{CMAKE_CURRENT_BINARY_DIR}
+to make sure the source gets placed in the correct location (i.e. no
+build products in the source tree).  At this point, you can build and
+test the example (how to do that is a quick Google search away);
+however, this example is not exactly thrilling.  Now that we have the
+token analyzer, we can turn to the actual parsing.
+
+\section{Parsing with Bison}
+
+Our first task is to update the Flex input to return values.  For each
+data type of interest, we use the standard library functions to convert
+the text to a usable type.  For strings, we copy the contents of the
+pointer because Flex can potentially overwrite the data before we can
+use it.  Note, \emph{we} are responsible for \lstinline{free}ing the
+memory once we're done with it in the calling code.  We assign these to
+values in the \lstinline{yylval} structure which is declared in
+\lstinline{example.parser.hh} which will be emitted by Bison.
+
+\begin{code block}
+    \lstinputlisting[style=inputs]{bison-1/lexer.l}
+\end{code block}
+
+Next, we update the \lstinline{CMakeLists.txt} to prepare for the call
+to Bison.  One annoying part of using CMake for this task is we have to
+explicitly tell it that the Flex file depends on the result of the call
+to Bison (even though it knows how to scan inputs.  I bet SCons could do
+it right…).  But, it's better than managing a \lstinline{Makefile}
+directly.  Note, we are using relative paths for the flex input only for
+example purposes.  \emph{Do not} take this as the ``right'' way to setup
+a CMake project.
+
+\begin{code block}
+    \lstinputlisting[style=inputs]{bison-1/CMakeLists.txt}
+\end{code block}
+
+Now we are ready to write the Bison file.  Bison is a Yacc-compatible
+parser generator~\cite{gnu_bison_2019}.  It takes a sequence of tokens
+and assembles the parsing table.  We begin with another simple example
+that just prints what the parser sees.
+
+\begin{code block}
+    \lstinputlisting[style=inputs]{bison-1/parser.y}
+\end{code block}
+
+The important things we see here are the declaration of the symbols
+we'll need when parsing and in the copied code blocks.  We have kept the
+main function in the copied code block because the header section (the
+code between the \lstinline[language=C]|{%}| and \lstinline[language=C]|%}|)
+is \emph{not} copied to the header.  Thus, we cannot just include the
+header in a separate main file.  We have the usual definition of the
+Bison union and the terminal tokens.
+
+The major change from verBurg's tutorial is the formatting.  Reading
+over the Bison manual~\cite{gnu_bison_2019}, they note the white space
+does not matter, but they recommend this format with the vertical bar
+`|' in the first column.  Upon seeing this, it dawned on me that the
+rules just work out to functional programming like Haskell.  Each of the
+targets before the colon is a non-terminal symbol that is comprised of
+the sequence to the right of the colon.  They can be recursively defined
+(left recursive tends to be better) or they can be comprised of terminal
+symbols (\lstinline{INT}, \lstinline{FLOAT}, or \lstinline{STRING} in
+this case).
+
+If we run the code with the example data file, we see it just prints the
+data from the file.  The parsing ignores the comments and blank lines
+like we want.  We do see the colon, our designated field separator, gets
+printed to the standard output.  Our next task is to build up the rules
+that will collect the values into collections and associate them with a
+property.
+
+\begin{code block}
+    \lstinputlisting[style=inputs]{example.dat}
+\end{code block}
+
+\section{Separating the Fields from the Values}
+
+Now that we have a feel for what Bison is doing, we can expand the
+example to separate the fields from the values.  The first step is to
+add the following lines to the Flex input to help with error reporting
+and ensuring the colon is returned to the parser.
+
+\begin{code block}
+    \lstinputlisting[style=inputs]{bison-2/lexer.l.patch}
+\end{code block}
+
+The next step is to update the parser to collect the property names and
+the values as shown below.  The key changes are declaring storage in the
+initial header (the strings and vector) and storing the data
+appropriately in either the key or value strings or in the vector
+storage.
+
+\begin{code block}
+    \lstinputlisting[style=inputs]{bison-2/parser.y}
+\end{code block}
+
+An important thing to note is the arguments to the output (the dollar
+sign followed by a number) include counting the actions inside the
+braces.  Thus, the value to assign to \lstinline{val} is \lstinline{4}
+not \lstinline{3}.  This gets the assignment correct and properly frees
+the memory.
+
+\section{Assembling the Output}
+
+Now we put it all together.  We have the keys and the values that we can
+assemble into the main \lstinline{Database}.  For the Flex input, we
+symbolically define the separator and symbolic references for the
+different datum types.
+
+\begin{code block}
+    \lstinputlisting[style=inputs]{lexer.l}
+\end{code block}
+
+For the Bison input, we have more to do.  We remove the main routine and
+place it in a separate input file to demonstrate loading the data as a
+separate library.  We also define additional variables for tracking the
+desired output shape of the vector data and new tokes for triggering the
+types.  Next, we begin to separate the semantics to grab the key and
+then separate the logic for the different types.  A string type is
+simply the string value while the scalar and vector processes through
+the possibly defined shapes before we process the values.  After reading
+all the values, we reshape the data and place it in the output.
+
+\begin{code block}
+    \lstinputlisting[style=inputs]{parser.y}
+\end{code block}
+
+Note, we defined the database as a global variable.  This is sufficient
+for a single parser with a centrally maintained database, but it will
+not work if we need multiple parsers or to manage multiple databases.
+
+The final step is updating the CMake input which should be a straight
+forward task.
+
+\begin{code block}
+    \lstinputlisting[style=inputs]{CMakeLists.txt}
+\end{code block}
+
+\section{Conclusions}
+
+In this post, we outlined how to get Bison and Flex working in yet
+another tutorial.  The presented implementation works for a centrally
+managed database, but it will probably not work if multiple databases
+are necessary.  The ``correct'' solution would be to use a reentrant
+parser, but I wasn't able to get that working (I couldn't get Flex and
+Bison to both see the class definition and match the function
+signatures).  But, after reflecting on what I actually need for loading
+data in my use case, I decided that going full YAML (or the equivalent)
+will serve me better.  So with that, I'll leave getting the reentrant
+parsing for another day.
+
+\printbibliography[heading=subbibliography]
+\end{document}

@@ -1,0 +1,27 @@
+--- bison-1/lexer.l	2020-01-20 02:52:28.000000000 -0500
++++ bison-2/lexer.l	2020-01-20 02:52:00.000000000 -0500
+@@ -3,6 +3,7 @@
+ 
+ #include "parser.parser.hh"
+ 
++int line_num = 1;
+ %}
+ 
+ %option noyywrap
+@@ -17,7 +18,7 @@
+ %%
+ 
+ [ \t\r]     ;
+-\n          ;
++\n          {line_num++;}
+ {COMMENT}.* ;
+ {INTEGER}   {
+         yylval.ival = atoi(yytext);
+@@ -31,6 +32,7 @@
+         yylval.sval = strdup(yytext);
+         return STRING;
+     }
++:           {return ':';}
+ 
+ %%
+ 
