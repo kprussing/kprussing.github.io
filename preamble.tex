@@ -51,12 +51,15 @@
                        \textnormal{\DTMusedate{current}}]
     \titlespacing{\chapter}{0pt}{-50pt}{20pt}
     \ExecuteBibliographyOptions{refsegment=chapter+}
-    \newenvironment{abstract}{%
+    \newenvironment{summary}{%
         \section*{Abstract}
         \small
         \quotation
     }{\endquotation}
-}{}
+}{%
+    \newenvironment{summary}{\abstract}
+                            {\endabstract}
+}
 
 % Configure the header and footer based on inclusion as a chapter or a
 % standalone document

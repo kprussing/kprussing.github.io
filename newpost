@@ -72,10 +72,10 @@ cat << _EOF_ > "$postdir/$POST"
 \\date{\\today}
 \\iftoggle{is book}{}{\\maketitle}
 
-\\begin{abstract}
+\\begin{summary}
 The abstract goes here.  You might want to add the post to the overall
 build.
-\\end{abstract}
+\\end{summary}
 
 Post text goes here
 
