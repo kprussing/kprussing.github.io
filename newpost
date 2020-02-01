@@ -79,5 +79,9 @@ build.
 
 Post text goes here
 
+\\IfFileExists{references.bib}{%
+    \\bibliographystyle{apsrev4-1}
+    \\bibliography{references.bib}
+}{}
 \\end{document}
 _EOF_
