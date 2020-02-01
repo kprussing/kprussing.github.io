@@ -1,11 +1,5 @@
 % Document wide customizations
-\usepackage[style=phys,
-            articletitle=false,
-            biblabel=brackets,
-            chaptertitle=false,
-            pageranges=false,
-            url=true,
-            hyperref=manual]{biblatex}
+\usepackage[style=ieee]{biblatex}
 \usepackage[en-US,useregional]{datetime2}
 \usepackage{etoolbox}
 \usepackage{fancyhdr}
@@ -19,7 +13,6 @@
 \AtEndPreamble{%
     \usepackage[colorlinks]{hyperref}
     \usepackage[capitalise]{cleveref}
-    \BiblatexManualHyperrefOn
 }
 
 % Stash if we are using the composite document
