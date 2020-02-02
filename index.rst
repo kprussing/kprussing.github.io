@@ -1,10 +1,8 @@
-.. The Keith Page documentation master file, created by
-   sphinx-quickstart on Sat Feb  1 22:38:05 2020.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+The Keith Page
+==============
 
-Welcome to The Keith Page
-=========================
+Welcome to my webpage!  This is a little place on the web I like to call
+my own.  Feel free to take a look around.
 
 .. toctree::
    :maxdepth: 2
