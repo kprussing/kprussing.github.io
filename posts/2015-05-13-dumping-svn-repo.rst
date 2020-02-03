@@ -1,22 +1,23 @@
----
-layout: post
-title: Dumping a Subversion Repository
----
+.. meta::
+   :date: 2015-05-13
 
-After finishing my thesis work, I wanted to grab the revision history
-for both the software I developed and the writing of my dissertation.
-It was (is?) stored in a subversion server owned by the lab; however, I
-want all of that for my own purposes.
+Dumping a Subversion Repository
+===============================
 
-<!--break-->
+.. class:: summary
 
-First, I had to dump from a remote server
+    After finishing my thesis work, I wanted to grab the revision
+    history for both the software I developed and the writing of my
+    dissertation.  It was (is?) stored in a subversion server owned by
+    the lab; however, I want all of that for my own purposes.
+
+First, I had to dump from a remote server::
 
     $ svnrdump https://url/to/repo > repo_full.svndump
 
 Now I have the full repository, but it is full of empty commits.  This
 is because I had only a twig on the server so I need to strip all of
-those empty commits out.  Enter `svndumpfilter`.
+those empty commits out.  Enter ``svndumpfilter``.::
 
     $ svndumpfilter --drop-all-empty-revs --renumber-revs include \
     > myrepo < repo_full.svn_dump > repo_stripped.svn_dump
