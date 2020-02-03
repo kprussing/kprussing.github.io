@@ -8,6 +8,7 @@ my own.  Feel free to take a look around.
    :maxdepth: 2
    :caption: Contents:
 
+   about
    posts/index
 
 
