@@ -4,6 +4,8 @@
 # list see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
+import os
+
 # -- Path setup --------------------------------------------------------------
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -18,7 +20,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'The Keith Page'
-copyright = '2020, Keith F Prussing, Ph.D.'
+copyright = '2020, Keith F Prussing'
 author = 'Keith F Prussing, Ph.D.'
 
 
@@ -33,9 +35,6 @@ primary_domain = None
 extensions = [
 ]
 
-# Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
-
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
@@ -49,7 +48,18 @@ numfig = True
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = "my-theme"
+html_theme_path = [os.curdir]
+
+html_style = "my-theme.css"
+
+html_theme_options = {
+        "github" : "kprussing",
+        "email" : "kprussing74@gmail.com",
+        "linkedin" : "kprussing",
+        "stackoverflow" : "4249913",
+        "footer_bg_color" : "#eee",
+    }
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

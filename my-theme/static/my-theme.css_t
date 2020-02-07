@@ -1,0 +1,19 @@
+
+.container {
+    margin: 0 auto;
+    max-width: 740px;
+    padding: 0 10px;
+    width: 100%;
+}
+
+.wrapper-footer {
+    margin-top: 50px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    background-color: {{ theme_footer_bg_color|default("#eee") }};
+}
+
+footer {
+    padding: 20px 0;
+    text-align: center;
+}
