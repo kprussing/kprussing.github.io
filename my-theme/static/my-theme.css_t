@@ -1,4 +1,15 @@
 
+html {
+    font-size: 100%;
+}
+
+body {
+    background: {{ theme_bg_color|default("#fff") }};
+    font-size: 18px/1.4;
+    font-family: {% for f in theme_fonts %}"{{ f }}", {% endfor %}sans-serif;
+    color: {{ theme_fg_color|default("#333") }};
+}
+
 .container {
     margin: 0 auto;
     max-width: 740px;
