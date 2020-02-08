@@ -48,12 +48,17 @@ numfig = True
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
+html_baseurl = "https://kprussing.github.io"
 html_theme = "my-theme"
 html_theme_path = [os.curdir]
 
 html_style = "my-theme.css"
 
 html_theme_options = {
+        "author" : author,
+        "avatar" : "https://avatars.githubusercontent.com/kprussing",
+        "baseurl" : html_baseurl,
+        "description" : "Computational Physicist in Atlanta, GA",
         "github" : "kprussing",
         "email" : "kprussing74@gmail.com",
         "linkedin" : "kprussing",
