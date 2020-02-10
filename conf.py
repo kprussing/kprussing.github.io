@@ -63,13 +63,6 @@ html_theme_options = {
         "email" : "kprussing74@gmail.com",
         "linkedin" : "kprussing",
         "stackoverflow" : "4249913",
-        "footer_bg_color" : "#eee",
-        "bg_color" : "#fff",
-        "fg_color" : "#333",
-        "fonts" : ["Source Sans Pro",
-                   "Helvetica",
-                   "Georgia",
-                  ],
     }
 
 # Add any paths that contain custom static files (such as style sheets) here,
