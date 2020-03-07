@@ -68,6 +68,12 @@ html_theme_options = {
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
+html_title = "The Keith Page"
+html_use_index = False
+html_sidebars = {
+        "**" : ["localtoc.html", "sourcelink.html"],
+    }
+
 # Math as images configuration.  (Mainly because it will use LaTeX to do
 # the rendering).
 # .. todo:: PNG rendering is grainy (shocker) but the SVG isn't workin
