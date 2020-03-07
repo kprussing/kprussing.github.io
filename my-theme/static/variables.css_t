@@ -1,0 +1,19 @@
+/* The variable definitions for the main style.  This is mainly to
+ * isolate the templating Sphinx and Jinja need to do.  We can let the
+ * usual HTML rendering process deal with the color replacements.
+ */
+
+:root {
+    --background: {{ theme_bg_color }};
+    --forground: {{ theme_fg_color }};
+    --headers: {{ theme_header_color }};
+    --quotes: {{ theme_quote_color }};
+    --links: {{ theme_link_color }};
+    --footer: {{ theme_footer_color }};
+
+    --main-fonts: {% for f in theme_fonts.split(",") %}"{{ f.strip() }}", {% endfor %}sans-serif;
+    --code-fonts: {% for f in theme_fonts.split(",") %}"{{ f.strip() }}", {% endfor %}sans-serif;
+}
+
+/* vim: filetype=css:
+ */

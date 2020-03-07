@@ -52,8 +52,6 @@ html_baseurl = "https://kprussing.github.io"
 html_theme = "my-theme"
 html_theme_path = [os.curdir]
 
-html_style = "my-theme.css"
-
 html_theme_options = {
         "author" : author,
         "avatar" : "https://avatars.githubusercontent.com/kprussing",

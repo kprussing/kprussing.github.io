@@ -1,0 +1,233 @@
+/* Copyright 2020 Keith F Prussing <kprussing74@gmail.com>
+ *
+ * This style sheet is an adaptation of the [Jekyll Now](https://github.com/barryclark/jekyll-now)
+ * theme but stripped of many of the things I don't really need.  It's
+ * also an exercise for myself in working more directly with CSS (since
+ * I can't seem to leave typesetting alone).
+ *
+ * This CSS document is delivered to you under the CC BY-SA 3.0 License.
+ * https://creativecommons.org/license/by-sa/3.0/deed.en_US
+ */
+
+/* ## Structural Decisions
+ *
+ * We begin with global settings.
+ */
+
+html {
+    font-family: var(--main-fonts);
+    font-size: 100%;
+
+    color: var(--foreground);
+    background: var(--background);
+
+    text-align: justify;
+    text-justify: inter-word;
+    line-height: 1.2;
+    margin: auto;
+}
+
+/* Next, we go for headers and footers.
+ */
+
+.wrapper-masthead {
+    margin-bottom: 50px;
+    /*border-style: solid;*/
+    /*border-color: red;*/
+}
+
+.masthead {
+    padding: 20px 0em;
+    border-bottom: 1px solid var(--footer);
+}
+
+.site-avatar {
+    float: left;
+    width: 70px;
+    height: 70px;
+    margin-right: 15px;
+    img {
+        border-radius: 5px;
+    };
+}
+
+.site-info {
+    float: left;
+}
+
+.site-name {
+    margin: 0;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 1.75em;
+}
+
+.site-description {
+    margin: -5px 0 0 0;
+    color: var(--quotes);
+    font-size: 16px;
+}
+
+nav {
+    float: right;
+    margin-top: 23px; // @TODO: Vertically middle align
+    font-family: var(--main-fonts);
+    font-size: 18px;
+  
+    a {
+        margin-left: 20px;
+        color: var(--foreground);
+        text-align: right;
+        font-weight: 300;
+        letter-spacing: 1px;
+    }
+}
+
+.wrapper-footer {
+    margin-top: 50px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    background-color: var(--footer);
+}
+
+footer {
+    padding: 20px 0;
+    text-align: center;
+}
+
+/* The container class is mainly to help with structuring the header and
+ * footer.
+ */
+.container {
+    margin: 0 auto;
+    max-width: 740px;
+    padding: 0 10px;
+    width: 100%;
+
+    /* The following is purely for structural checking.
+     */
+    /*border-style: solid;*/
+    /*border-color: red;*/
+}
+
+/* Now on to setting particular elements starting with the headings.
+ */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--headers);
+    font-weight: bold;
+    line-height: 1.7;
+    margin: 1em 0 15px;
+    padding: 0;
+}
+
+p {
+  margin: 15px 0;
+}
+
+a {
+  color: var(--links);
+  text-decoration: none;
+	cursor: pointer;
+  &:hover, &:active {
+    color: var(--links);
+  }
+}
+
+ul, ol {
+  margin: 15px 0;
+  padding-left: 30px;
+}
+
+ul {
+  list-style-type: disc;
+}
+
+ol {
+  list-style-type: decimal;
+}
+
+ol ul, ul ol, ul ul, ol ol {
+  margin: 0;
+}
+
+ul ul, ol ul {
+  list-style-type: circle;
+}
+
+em, i {
+  font-style: italic;
+}
+
+strong, b {
+  font-weight: bold;
+}
+
+img {
+  max-width: 100%;
+}
+
+.date {
+  font-style: italic;
+  color: var(--quotes);
+}
+
+// Specify the color of the selection
+::-moz-selection {
+  color: #000;
+  background: var(--footer);
+}
+::selection {
+  color: #000;
+  background: var(--footer);
+}
+
+// Nicolas Gallaghers micro clearfix hack
+// http://nicolasgallagher.com/micro-clearfix-hack/
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+/*********************/
+/* LAYOUT / SECTIONS */
+/*********************/
+
+//
+// .main
+//
+
+.posts > .post {
+  padding-bottom: 2em;
+  border-bottom: 1px solid var(--footer);
+}
+
+.posts > .post:last-child {
+  padding-bottom: 1em;
+  border-bottom: none;
+}
+
+.post { 
+  blockquote {
+    margin: 1.8em .8em;
+    border-left: 2px solid var(--quotes);
+    padding: 0.1em 1em;
+    color: var(--quotes);
+    font-size: 22px;
+    font-style: italic;
+  }
+
+  .comments {
+    margin-top: 10px;
+  }
+
+  .read-more {
+    text-transform: uppercase;
+    font-size: 15px;
+  }
+}
+

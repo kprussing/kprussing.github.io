@@ -1,4 +1,9 @@
-{%- extends "basic/layout.html" %}
+{%- extends "basic/layout.html" %}{%- block sidebar %}{%- endblock %}
+{%- block css %}
+  {%- for css in theme_css_files.split(',') %}
+    <link rel="stylesheet" href="{{ pathto('_static/' + css.strip(), 1) }}" type="text/css">
+  {%- endfor %}
+{%- endblock %}{%- block scripts %}{%- endblock %}
 {%- block header %}
   <div class="wrapper-masthead">
     <div class="container">
