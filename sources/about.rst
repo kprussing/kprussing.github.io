@@ -1,8 +1,9 @@
----
-layout: page
-title: About me
-permalink: /about/
----
+:author: Keith F. Prussing
+:date: 2014-09-17
+:template: post.html
+
+About Me
+========
 
 As stated in the header, I am a computational physicist in the Atlanta
 area.  I started out as a “music major” at the local community college,
@@ -10,11 +11,11 @@ but I realized that would just land me the job I already had of selling
 music instruments.  One night, while hanging out with a friend, the
 following conversation was had
 
-> Me: You know, I was always good at physics in high school.
->
-> Friend: Hey! You should do that.  It would be lucrative!
->
-> Me: You know what?  I think I will!
+    Me: You know, I was always good at physics in high school.
+
+    Friend: Hey! You should do that.  It would be lucrative!
+
+    Me: You know what?  I think I will!
 
 Or something to that effect.  The end results was that I woke up,
 thought about it a bit more, discussed it with my girlfriend (now wife),
@@ -94,7 +95,7 @@ choke-hold of MATLAB.  This is partly due to financial reasons and
 partly to memory limitations.  We cannot process the highest resolution
 data cubes with in MATLAB because it cannot request enough memory to do
 the necessary work.  Long term goals include real time processing of
-hyper-spectral data for _in situ_ checking during field work and
+hyper-spectral data for *in situ* checking during field work and
 processing spectral data to predict broad band sensor response.  The end
 goal is to use any means necessary to enhance performance including
 acceleration with graphic processing units.
