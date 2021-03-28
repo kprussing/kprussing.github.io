@@ -41,6 +41,7 @@ exclude_patterns = [
     "Thumbs.db",
     ".DS_Store",
     "changelog.rst",
+    "_drafts",
 ]
 
 

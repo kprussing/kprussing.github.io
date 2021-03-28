@@ -1,12 +1,12 @@
 Resumes and Career Fair Prep
-----------------------------
+============================
 
 These are my notes from the seminars put on by the Career Services
 department.  These will start out as pretty sporadic until I get a
 chance to synthesize them.  For now, we'll start by organizing by day.
 
 2014-08-26 Resumes and Career Fair Prep
-=======================================
+---------------------------------------
 
 First, I should wait for the doors to open (i.e. the speaker is here)
 before I bother to go in.  They needed to scan the BuzzCard and I got
@@ -39,7 +39,7 @@ Education
     **Never** add relevant course work.  Integrate that into skills.
     
 Skills
-:   Comes next unless I have reserach or work experience in my field.
+    Comes next unless I have reserach or work experience in my field.
 
     Every course has 4 core ideas.  Those are the nouns that go in
     skills section.  Break the courses down to what they were about.
@@ -61,7 +61,7 @@ Skills
     +   Musical skills: Use them
 
 Experience and projects
-:   Includes work experience and class work.  Formatted the projects and
+    Includes work experience and class work.  Formatted the projects and
     experience
 
     What did I do where did it happen include title in group
@@ -74,7 +74,7 @@ Experience and projects
     3 bullets per job.  Don't get carried away.
 
 Activities and Honors
-:   Throw away section.  This is where I can go on about anything.  Not
+    Throw away section.  This is where I can go on about anything.  Not
     nearly as important.  Conveys I'm more than a lab monkey.
 
 This will give more than one page.  It is easy to trim down to one page
@@ -108,11 +108,12 @@ facts in perspective.  There is another workshop.
 Always keep in mind who the audience is.
 
 2014-08-27 Grad Student Resumes for Industry
-============================================
+--------------------------------------------
 
 Network, network, network…  Keep an idea about how much I'd want to
-make.  Update my voice mail.  Add comments about using `git` and `svn`.
-Make sure to talk about team work done with group on urban scene.
+make.  Update my voice mail.  Add comments about using ``git`` and
+``svn``.  Make sure to talk about team work done with group on urban
+scene.
 
 Edit 2014-11-28:
 This is simply a check to see if I can edit on <GitHub.com> directly.
