@@ -1,21 +1,14 @@
 {# Alterations from the base layout for my website #}
 {%- extends "!layout.html" %}
 
-{# Adjust around Sphinx versin skew #}
-{%- if sphinx_version >= "4.0" %}
-{% set _root = root_doc %}
-{% else %}
-{% set _root = master_doc %}
-{% endif %}
-
 {# Add the havitation to the header #}
 {%- block headernav %}
   <nav>
-    <a href="{{ pathto(_root) }}">Home</a>
+    <a href="{{ pathto('index') }}">Home</a>
     <a href="{{ pathto('about') }}">About</a>
-    <a href="{{ pathto(_root) }}/blog">Blog</a>
-    <a href="{{ pathto(_root) }}/fun">Fun</a>
-    <a href="{{ pathto(_root) }}/resume">Resume</a>
+    <a href="{{ pathto('blog/index') }}">Blog</a>
+    <a href="{{ pathto('fun/index') }}">Fun</a>
+    <a href="{{ pathto('resume/index') }}">Resume</a>
   </nav>
   {{ super() }}
 {%- endblock %}
