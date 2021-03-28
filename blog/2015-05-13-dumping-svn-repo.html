@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dumping a Subversion Repository &#8212; Computational Physicist in Atlanta. GA  documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/kpruss.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="A Quick Note on Installing Old Ports" href="2015-03-24-a-quick-note-on-macports.html" />
+    <link rel="prev" title="Yay Package Managers…" href="2015-07-16-yay-package-managers.html" /> 
+  </head><body>
+<div class="wrapper-masthead">
+  <div class="kpruss-container">
+    <header class="masthead clearfix">
+        <a href="../index.html" class="site-avatar"><img src="https://avatars.githubusercontent.com/kprussing" /></a>
+
+      <div class="site-info">
+          <h1 class="site-name">
+            <a href="../index.html">Keith F Prussing, Ph.D.</a>
+          </h1>
+          <p class="site-description">Computational Physicist in Atlanta. GA</p>
+      </div>
+
+      
+  <nav>
+    <a href="../index.html">Home</a>
+    <a href="../about.html">About</a>
+    <a href="index.html">Blog</a>
+    <a href="../fun/index.html">Fun</a>
+    <a href="../resume/index.html">Resume</a>
+  </nav>
+  
+    </header>
+  </div>
+</div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="2015-07-16-yay-package-managers.html"
+                        title="previous chapter">Yay Package Managers…</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="2015-03-24-a-quick-note-on-macports.html"
+                        title="next chapter">A Quick Note on Installing Old Ports</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/blog/2015-05-13-dumping-svn-repo.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+        </div>
+      </div>
+
+    <div class="document">
+<div class="kpruss-container">
+  
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="post">
+    
+  <div class="section" id="dumping-a-subversion-repository">
+<h1>Dumping a Subversion Repository<a class="headerlink" href="#dumping-a-subversion-repository" title="Permalink to this headline">¶</a></h1>
+<div class="abstract docutils container">
+<p>After finishing my thesis work, I wanted to grab the revision
+history for both the software I developed and the writing of my
+dissertation.  It was (is?) stored in a subversion server owned by
+the lab; however, I want all of that for my own purposes.</p>
+</div>
+<p>First, I had to dump from a remote server:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ svnrdump https://url/to/repo &gt; repo_full.svndump
+</pre></div>
+</div>
+<p>Now I have the full repository, but it is full of empty commits.  This
+is because I had only a twig on the server so I need to strip all of
+those empty commits out.  Enter <code class="docutils literal notranslate"><span class="pre">svndumpfilter</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ svndumpfilter --drop-all-empty-revs --renumber-revs include \
+&gt; myrepo &lt; repo_full.svn_dump &gt; repo_stripped.svn_dump
+</pre></div>
+</div>
+<p>Now, I can compress the file and store all of my revision history!  This
+isn’t really very exciting information, but I wanted to get it down for
+my own notes since I did it once and promptly forgot how to do it.</p>
+</div>
+
+
+  </div>
+  <div class="by-line" id="by-line">
+    <p>Keith F. Prussing, Ph.D.
+        on 2015-05-13</p>
+  </div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+</div>
+      <div class="clearer"></div>
+    </div>
+  <div class="wrapper-footer">
+    <div class="kpruss-container">
+      <footer class="footer">
+          <a href="mailto: kprussing74@gmail.com">
+              <img src="../_static/email.svg" alt="email">
+          </a>
+          <a href="https://github.com/kprussing">
+              <img src="../_static/github.svg" alt="GitHub">
+          </a>
+          <a href="https://linkedin.com/in/kprussing">
+              <img src="../_static/linkedin.png" alt="LinkedIn" width="40px" height="40px">
+          </a>
+          <a href="https://stackoverflow.com/users/4249913">
+              <img src="../_static/stackoverflow.svg" alt="Stack Overflow">
+          </a>
+        
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Keith F Prussing, Ph.D..
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
+    </div>
+      </footer>
+    </div>
+  </div>
+  </body>
+</html>

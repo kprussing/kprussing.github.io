@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Getting GLX Working with X Forwarding &#8212; Computational Physicist in Atlanta. GA  documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/kpruss.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Starting X Under Cygwin" href="2016-01-18-cygwin-note.html" />
+    <link rel="prev" title="Unified Command Line in Windows" href="2017-01-19-unified-terminal.html" /> 
+  </head><body>
+<div class="wrapper-masthead">
+  <div class="kpruss-container">
+    <header class="masthead clearfix">
+        <a href="../index.html" class="site-avatar"><img src="https://avatars.githubusercontent.com/kprussing" /></a>
+
+      <div class="site-info">
+          <h1 class="site-name">
+            <a href="../index.html">Keith F Prussing, Ph.D.</a>
+          </h1>
+          <p class="site-description">Computational Physicist in Atlanta. GA</p>
+      </div>
+
+      
+  <nav>
+    <a href="../index.html">Home</a>
+    <a href="../about.html">About</a>
+    <a href="index.html">Blog</a>
+    <a href="../fun/index.html">Fun</a>
+    <a href="../resume/index.html">Resume</a>
+  </nav>
+  
+    </header>
+  </div>
+</div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Getting GLX Working with X Forwarding</a><ul>
+<li><a class="reference internal" href="#edit-2020-03-29">Edit 2020-03-29</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="2017-01-19-unified-terminal.html"
+                        title="previous chapter">Unified Command Line in Windows</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="2016-01-18-cygwin-note.html"
+                        title="next chapter">Starting X Under Cygwin</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/blog/2016-06-05-glx-and-xquartz.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+        </div>
+      </div>
+
+    <div class="document">
+<div class="kpruss-container">
+  
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="post">
+    
+  <div class="section" id="getting-glx-working-with-x-forwarding">
+<h1>Getting GLX Working with X Forwarding<a class="headerlink" href="#getting-glx-working-with-x-forwarding" title="Permalink to this headline">¶</a></h1>
+<div class="abstract docutils container">
+<p>Some notes on how to get indirect rendering working with X
+forwarding on an ssh connection.</p>
+</div>
+<p>I finally figured out how to get the GLX working with XQuartz and the
+Red Hat machines.  It ultimately boils down to enabling the indirect GLX
+which is no longer enabled by default for most X systems.  For XQuartz,
+it’s a matter of updating to a recent version and passing the command
+<a class="reference external" href="https://bugs.freedesktop.org/show_bug.cgi?id=99146">see here</a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">defaults</span> <span class="n">write</span> <span class="n">org</span><span class="o">.</span><span class="n">macosforge</span><span class="o">.</span><span class="n">xquartz</span><span class="o">.</span><span class="n">X11</span> <span class="n">enable_iglx</span> <span class="o">-</span><span class="nb">bool</span> <span class="n">true</span>
+</pre></div>
+</div>
+<p>Then, to get the rendering to happen on the remote machine, you <em>must</em>
+set <code class="docutils literal notranslate"><span class="pre">DISPLAY=:0.0</span></code>.  I’m not sure why the login information is not
+sufficient, but I have better things to do that monkey around with that.
+Additionally, I determined that I had to log into a physical X session
+on the remote machine.  This isn’t so bad for me because the target
+machine is sitting under my desk.</p>
+<p>To see what happens when setting the display, try observing the
+difference between <code class="docutils literal notranslate"><span class="pre">glxinfo</span></code> and <code class="docutils literal notranslate"><span class="pre">DISPLAY=0</span> <span class="pre">glxinfo</span></code>.  For me, the
+second one actually reported the correct video card.  Take a look
+<a class="reference external" href="https://askubuntu.com/a/294773/708045">at this answer</a> for the
+enlightening details that brought me to this conclusion.</p>
+<div class="section" id="edit-2020-03-29">
+<h2>Edit 2020-03-29<a class="headerlink" href="#edit-2020-03-29" title="Permalink to this headline">¶</a></h2>
+<p>Empirical evidence seems to suggest that you _must_ have control of the
+X session to do indirect rendering.  This means you must be sitting at
+the workstation or have the screen locked under your name.  We keep
+running into this issue at work, and we haven’t found a solution as of
+this time.</p>
+</div>
+</div>
+
+
+  </div>
+  <div class="by-line" id="by-line">
+    <p>Keith F. Prussing, Ph.D.
+        on 2016-06-05</p>
+  </div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+</div>
+      <div class="clearer"></div>
+    </div>
+  <div class="wrapper-footer">
+    <div class="kpruss-container">
+      <footer class="footer">
+          <a href="mailto: kprussing74@gmail.com">
+              <img src="../_static/email.svg" alt="email">
+          </a>
+          <a href="https://github.com/kprussing">
+              <img src="../_static/github.svg" alt="GitHub">
+          </a>
+          <a href="https://linkedin.com/in/kprussing">
+              <img src="../_static/linkedin.png" alt="LinkedIn" width="40px" height="40px">
+          </a>
+          <a href="https://stackoverflow.com/users/4249913">
+              <img src="../_static/stackoverflow.svg" alt="Stack Overflow">
+          </a>
+        
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Keith F Prussing, Ph.D..
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
+    </div>
+      </footer>
+    </div>
+  </div>
+  </body>
+</html>

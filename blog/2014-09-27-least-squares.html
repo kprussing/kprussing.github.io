@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Least Squares Fitting &#8212; Computational Physicist in Atlanta. GA  documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/kpruss.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Writing in the Terminal" href="2014-09-17-writing-with-markdown.html" />
+    <link rel="prev" title="Salvaging Game Data on Android" href="2014-10-12-salvaging-game-data-on-android.html" /> 
+  </head><body>
+<div class="wrapper-masthead">
+  <div class="kpruss-container">
+    <header class="masthead clearfix">
+        <a href="../index.html" class="site-avatar"><img src="https://avatars.githubusercontent.com/kprussing" /></a>
+
+      <div class="site-info">
+          <h1 class="site-name">
+            <a href="../index.html">Keith F Prussing, Ph.D.</a>
+          </h1>
+          <p class="site-description">Computational Physicist in Atlanta. GA</p>
+      </div>
+
+      
+  <nav>
+    <a href="../index.html">Home</a>
+    <a href="../about.html">About</a>
+    <a href="index.html">Blog</a>
+    <a href="../fun/index.html">Fun</a>
+    <a href="../resume/index.html">Resume</a>
+  </nav>
+  
+    </header>
+  </div>
+</div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="2014-10-12-salvaging-game-data-on-android.html"
+                        title="previous chapter">Salvaging Game Data on Android</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="2014-09-17-writing-with-markdown.html"
+                        title="next chapter">Writing in the Terminal</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/blog/2014-09-27-least-squares.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+        </div>
+      </div>
+
+    <div class="document">
+<div class="kpruss-container">
+  
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="post">
+    
+  <div class="section" id="least-squares-fitting">
+<h1>Least Squares Fitting<a class="headerlink" href="#least-squares-fitting" title="Permalink to this headline">¶</a></h1>
+<div class="abstract docutils container">
+<p>This note is more for myself than for anyone else.  I have derived
+the expression for the least squares fitting so many times it’s not
+funny.  The problem is, once I cobble together the routine to
+perform the fitting, I completely forget how to do it again.  I
+hope, this will prevent me from having to do it ever again if only
+because it is on my website.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This post was originally focused on using Jekyll to generate this
+website.  I have since moved to using <a class="reference external" href="https://pandoc.org">Pandoc</a> which does not require
+explicitly embedding the JavaScript code, but you must include one of
+the command line options to <a class="reference external" href="https://pandoc.org/MANUAL.html#math-rendering-in-html">render the math</a>.
+The syntax of the raw text has been updated but not the content.</p>
+</div>
+<p>This post also gives me a chance to try out <a class="reference external" href="http://www.mathjax.org">MathJax</a>.  After a Google
+search, I came across <a class="reference external" href="http://gastonsanchez.com/blog/opinion/2014/02/16/Mathjax-with-jekyll.html">these</a> instructions.  Apparently, we simply need
+to add:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">script</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot;</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">script</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>to the layout.  However, I don’t really want it in every page.  So, I
+just put it at the top of this source.  Oh while I’m at it, make sure
+you spell <code class="docutils literal notranslate"><span class="pre">javascript</span></code> right.  If you don’t you could spend a few
+hours wondering what went wrong like I did when I spelled it
+<code class="docutils literal notranslate"><span class="pre">javascrpit</span></code>.</p>
+<p>We begin with a set of function of the independent variable
+<span class="math notranslate nohighlight">\(\{x_i\}\)</span> and dependent variables <span class="math notranslate nohighlight">\(\{y_i\}\)</span>.  We then select
+a collection of functions to relate the two</p>
+<div class="math notranslate nohighlight">
+\[y_i = a_0 +a_1 x_i +a_2 x_i^2 +\ldots +a_j \sin(x_i) =\sum_j
+a_j\,f_j(x_i).\]</div>
+<p>Now, we minimize the squared error</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial}{\partial a_k} \frac{1}{N}\sum_i [y_i -\sum_j
+a_j\,f_j(x_i)]^2 = -\frac{2}{N} \sum_i [y_i -\sum_j a_j\,f_j(x_i)]
+f_k(x_i) = 0\]</div>
+<p>or in matrix form</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{a} \mathbf{F} \mathbf{F}^T = \mathbf{y} \mathbf{F}^T\]</div>
+<p>which can be readily solved for the coefficients <span class="math notranslate nohighlight">\(\{a_j\}\)</span>.</p>
+<p>See, I told you that this was simple.  Now to put this online and see
+how the math looks.</p>
+<p>A few pointers:</p>
+<ul class="simple">
+<li><p>You must escape the backslashes in entering the math mode <code class="docutils literal notranslate"><span class="pre">\\(</span> <span class="pre">…</span>
+<span class="pre">\\)</span></code> and <code class="docutils literal notranslate"><span class="pre">\\[</span> <span class="pre">…</span> <span class="pre">\\]</span></code>.</p></li>
+<li><p>The dollar sign version <code class="docutils literal notranslate"><span class="pre">$$</span> <span class="pre">…</span> <span class="pre">$$</span></code> appears to work as inline math
+with <code class="docutils literal notranslate"><span class="pre">kramdown</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">\sum_j</span></code> construct with no limits on the sum does <em>not</em> like
+with the index is inside <code class="docutils literal notranslate"><span class="pre">{}</span></code> unless you escape with a backslash
+(maybe.  I didn’t actually test that).</p></li>
+</ul>
+</div>
+
+
+  </div>
+  <div class="by-line" id="by-line">
+    <p>Keith F. Prussing
+        on 2014-09-27</p>
+  </div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+</div>
+      <div class="clearer"></div>
+    </div>
+  <div class="wrapper-footer">
+    <div class="kpruss-container">
+      <footer class="footer">
+          <a href="mailto: kprussing74@gmail.com">
+              <img src="../_static/email.svg" alt="email">
+          </a>
+          <a href="https://github.com/kprussing">
+              <img src="../_static/github.svg" alt="GitHub">
+          </a>
+          <a href="https://linkedin.com/in/kprussing">
+              <img src="../_static/linkedin.png" alt="LinkedIn" width="40px" height="40px">
+          </a>
+          <a href="https://stackoverflow.com/users/4249913">
+              <img src="../_static/stackoverflow.svg" alt="Stack Overflow">
+          </a>
+        
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Keith F Prussing, Ph.D..
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
+    </div>
+      </footer>
+    </div>
+  </div>
+  </body>
+</html>

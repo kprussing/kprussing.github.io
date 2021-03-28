@@ -1,0 +1,11 @@
+**.html        -diff -merge
+*.js           -diff -merge
+_sources/**    -diff -merge
+_static/*      -diff -merge
+_images/*      -diff -merge
+
+**.html        linguist-generated=true
+*.js           linguist-generated=true
+_sources/**    linguist-generated=true
+_static/*      linguist-generated=true
+_images/*      linguist-generated=true

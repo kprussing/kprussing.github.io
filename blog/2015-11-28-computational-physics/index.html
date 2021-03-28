@@ -1,0 +1,476 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playing with Computational Physics &#8212; Computational Physicist in Atlanta. GA  documentation</title>
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/kpruss.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Setting a Break Point Under PyQt" href="../2015-08-24-debug-pyqt-application.html" />
+    <link rel="prev" title="Starting X Under Cygwin" href="../2016-01-18-cygwin-note.html" /> 
+  </head><body>
+<div class="wrapper-masthead">
+  <div class="kpruss-container">
+    <header class="masthead clearfix">
+        <a href="../../index.html" class="site-avatar"><img src="https://avatars.githubusercontent.com/kprussing" /></a>
+
+      <div class="site-info">
+          <h1 class="site-name">
+            <a href="../../index.html">Keith F Prussing, Ph.D.</a>
+          </h1>
+          <p class="site-description">Computational Physicist in Atlanta. GA</p>
+      </div>
+
+      
+  <nav>
+    <a href="../../index.html">Home</a>
+    <a href="../../about.html">About</a>
+    <a href="../index.html">Blog</a>
+    <a href="../../fun/index.html">Fun</a>
+    <a href="../../resume/index.html">Resume</a>
+  </nav>
+  
+    </header>
+  </div>
+</div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Playing with Computational Physics</a><ul>
+<li><a class="reference internal" href="#chapter-1">Chapter 1</a><ul>
+<li><a class="reference internal" href="#problem-1">Problem 1</a></li>
+<li><a class="reference internal" href="#problem-2">Problem 2</a></li>
+<li><a class="reference internal" href="#problem-3">Problem 3</a></li>
+<li><a class="reference internal" href="#problem-4">Problem 4</a></li>
+<li><a class="reference internal" href="#problem-5">Problem 5</a></li>
+<li><a class="reference internal" href="#problem-6">Problem 6</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#conclusion">Conclusion</a></li>
+<li><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../2016-01-18-cygwin-note.html"
+                        title="previous chapter">Starting X Under Cygwin</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../2015-08-24-debug-pyqt-application.html"
+                        title="next chapter">Setting a Break Point Under PyQt</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/blog/2015-11-28-computational-physics/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+        </div>
+      </div>
+
+    <div class="document">
+<div class="kpruss-container">
+  
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="post">
+    
+  <div class="section" id="playing-with-computational-physics">
+<h1>Playing with Computational Physics<a class="headerlink" href="#playing-with-computational-physics" title="Permalink to this headline">¶</a></h1>
+<div class="abstract docutils container">
+<p>At some point during the process of working through my dissertation,
+I got so bogged down in the process of <em>doing</em> the work, I forgot a
+bit <em>why</em> I was so intrigued when I started.  I was going through
+the motions, but not really finding the fun of physics.  Sure,
+programming is fun in and of itself, but I was missing the physics.
+So, now that I have free time to pursue a hobby, I want to go back
+and remind myself why I started down this path.</p>
+</div>
+<p>So, where to go?  I am one of those people who value a good book.  And I
+do mean a physical book.  I bought and kept all of my text books
+throughout my undergrad and graduate work.  That being the case, I
+grabbed my undergraduate computational physics book by Nicholas J.
+Giordano and Hisao Nakanishi [1] and decided to work through it again.
+It is a fantastic book that covers a broad span of topics with many fun
+problems that I can play with.</p>
+<p>With that all said, I plan on working through all of the problems
+starting at the beginning.  I will periodically post a selection of the
+discussion of the solutions here, but some problems are trivial and
+don’t merit much in the way of discussion.  I will be working with
+Python primarily, but I may dust of my Fortran skills for some of the
+problems.  I will also be attempting to keep the code recognizable and
+avoid clever tricks like list comprehensions in the physics parts.  It’s
+not that I don’t know them (I do), I’m just trying to keep to the
+basics.  Anything to do with display or I/O is fair game though.  The
+code will be hosted in a <a class="reference external" href="repo">mercurial repository on Bitbucket</a>.
+Why Bitbucket and mercurial <a class="reference internal" href="#f1" id="id1"><span>[f1]</span></a> you ask?  Because it’s Python.</p>
+<p>And now for a final note before I get started.  If you are an
+undergraduate using this text, go do your homework before looking over
+my solutions.  It’s good for you and actually quite fun.</p>
+<div class="section" id="chapter-1">
+<h2>Chapter 1<a class="headerlink" href="#chapter-1" title="Permalink to this headline">¶</a></h2>
+<p>And so it begins.  This will probably be a very short section because
+the problems are very simple.  The chapter is simply a chance to whet
+the appetite and brush up on some basics.  It will also give me a chance
+to build some basic plotting tools for later.</p>
+<div class="section" id="problem-1">
+<h3>Problem 1<a class="headerlink" href="#problem-1" title="Permalink to this headline">¶</a></h3>
+<p>Not much to see here.  It is pretty trivial to see that the solution is
+<span class="math notranslate nohighlight">\(v(t) = v(0) - g t\)</span>.  Each time step is similarly simple
+<span class="math notranslate nohighlight">\(t_i = i \Delta t\)</span>.  Computing over a selection of time steps, we
+find</p>
+<div class="figure align-default" id="id2">
+<img alt="../../_images/compphys_chapter1_problem1a.svg" src="../../_images/compphys_chapter1_problem1a.svg" /><p class="caption"><span class="caption-text">Numeric and exact solution for chapter 1 problem 1.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<p>Well, that’s not very interesting.  It is good to know that we can get a
+good answer for this case, but what about the error?</p>
+<div class="figure align-default" id="id3">
+<img alt="../../_images/compphys_chapter1_problem1b.svg" src="../../_images/compphys_chapter1_problem1b.svg" /><p class="caption"><span class="caption-text">Error in the solution for chapter 1 problem 1.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+<p>Now, that’s more interesting.  What are the final results?  I’m glad you
+asked:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 31%" />
+<col style="width: 37%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Numeric</p></td>
+<td><p>Exact</p></td>
+<td><p>Difference</p></td>
+</tr>
+<tr class="row-even"><td><p>-98.000000</p></td>
+<td><p>-98.000000</p></td>
+<td><p>-7.95808e-13</p></td>
+</tr>
+<tr class="row-odd"><td><p>-98.000000</p></td>
+<td><p>-98.000000</p></td>
+<td><p>-2.70006e-13</p></td>
+</tr>
+<tr class="row-even"><td><p>-98.000000</p></td>
+<td><p>-98.000000</p></td>
+<td><p>4.26326e-14</p></td>
+</tr>
+<tr class="row-odd"><td><p>-98.000000</p></td>
+<td><p>-98.000000</p></td>
+<td><p>2.84217e-14</p></td>
+</tr>
+<tr class="row-even"><td><p>-98.000000</p></td>
+<td><p>-98.000000</p></td>
+<td><p>-1.42109e-14</p></td>
+</tr>
+<tr class="row-odd"><td><p>-98.000000</p></td>
+<td><p>-98.000000</p></td>
+<td><p>0</p></td>
+</tr>
+</tbody>
+</table>
+<p>We clearly see that <em>increasing</em> the time step <em>decreases</em> the error.
+This is contrary to the common result where decreasing the time step
+increases the accuracy.  What’s going on here?  The answer is
+accumulated error due to machine precision.  At each time step, we are
+accumulating a fractional error.  As we take more steps from the start
+to the finish, we are simply adding up all that error.  Tricks exist
+that you can use to reduce the error, but they use fancy array slicing
+which I am avoiding.</p>
+</div>
+<div class="section" id="problem-2">
+<h3>Problem 2<a class="headerlink" href="#problem-2" title="Permalink to this headline">¶</a></h3>
+<p>Not much to see here, unless you didn’t do problem 1.  Then it’s the
+exact same as above but with an opposite sign.  The accuracy is better,
+but I suspect that is due to a nice multiple of 10.</p>
+</div>
+<div class="section" id="problem-3">
+<h3>Problem 3<a class="headerlink" href="#problem-3" title="Permalink to this headline">¶</a></h3>
+<p>Now we get to something non-trivial.  Implementing the Euler method is
+straight forward.  At some point, I will probably need to write a canned
+routine to perform the Euler method, but that seems to be touching on
+the area I want to avoid.  We’ll see.  But now results.  Plotting for a
+selection of <span class="math notranslate nohighlight">\(b\)</span>, we see that the terminal velocity is being
+reached as expected.  A bit of manipulation reveals that terminal
+velocity is when <span class="math notranslate nohighlight">\(v_t = a / b\)</span> which is what we are seeing.
+Beyond that, there isn’t really much more to say.  I know we’ll come
+back to this in the next chapter.</p>
+<div class="figure align-default" id="id4">
+<img alt="../../_images/compphys_chapter1_problem3.svg" src="../../_images/compphys_chapter1_problem3.svg" /><p class="caption"><span class="caption-text">Numeric and exact solution for chapter 1 problem 3.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="problem-4">
+<h3>Problem 4<a class="headerlink" href="#problem-4" title="Permalink to this headline">¶</a></h3>
+<p>And now we get to the first “challenging” problem.  Coding up the
+numerical solution is straight forward.  The real challenge is in
+finding the analytic solution, and I must say, I have been out of
+ordinary differential equations for so long that it stumped me.  My
+first attempt was guess and check.  That failed horribly.  Then, I
+attempted to use a power series expansion.  That also failed.  The
+correct method was to use a trial function.</p>
+<p>We begin with the set of equations</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{dN_a}{du} &amp;= -N_A \\
+\frac{dN_b}{du} &amp;= N_A - \frac{\tau_A}{\tau_B}N_B\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(u = t / \tau_A\)</span> and we define <span class="math notranslate nohighlight">\(R \equiv \tau_A /
+\tau_B\)</span>.  The solution to the first equation is trivial</p>
+<div class="math notranslate nohighlight">
+\[N_A = N_A(0)e^{-u}.\]</div>
+<p>The second equation is the trickier part.  First, move <span class="math notranslate nohighlight">\(N_B\)</span> to
+the left hand side and multiply by <span class="math notranslate nohighlight">\(e^{Ru}\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}e^{Ru}\frac{dN_B}{du} + (Re^{Ru})N_B &amp;= N_A(0)e^{(R-1)u}
+\\
+\frac{d}{du}\left( e^{Ru} N_B\right) &amp;= \frac{d}{du}
+\left( \frac{N_A(0)e^{(R-1)u}}{R-1} \right)\end{split}\]</div>
+<p>(Quick aside: apparently, both Jekyll and MathJax strip a backslash.
+Meaning, to get that line break above I had to use <cite>\\\\</cite>.)
+Integrating both sides we find</p>
+<div class="math notranslate nohighlight">
+\[e^{Ru} N_B(u) = \frac{N_A(0)}{R-1} e^{(R-1)u} + C.\]</div>
+<p>Now, if we have a population <span class="math notranslate nohighlight">\(N_B(0)\)</span> at time <span class="math notranslate nohighlight">\(u=0\)</span>, we can
+solve for <span class="math notranslate nohighlight">\(C\)</span> to find <span class="math notranslate nohighlight">\(C = N_B(0) - \frac{N_A(0)}{R-1}\)</span>.
+Putting it all together, we find</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}N_A(t) &amp;= N_A(0) e^{-t/\tau_A}
+\\
+N_B(t) &amp;= \frac{N_A(0)}{R-1}\left(
+    e^{-t/\tau_A} - e^{-t/\tau_B}
+\right) + N_B(0) e^{-t/\tau_B}\end{split}\]</div>
+<p>But wait, there’s more!  We clearly see a special case when
+<span class="math notranslate nohighlight">\(\tau_A = \tau_b\)</span>.  Then <span class="math notranslate nohighlight">\(R=1\)</span> the solution is a bit
+different.  In this case, we have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{dN_B}{du} &amp;= N_A(0)e^{-u} - N_B
+\\
+\rightarrow e^u \frac{dN_B}{du} + e^u N_B &amp; = N_A(0)
+\\
+\rightarrow \frac{d}{du}\left(e^uN_B\right) &amp;= N_A(0)
+\\
+\rightarrow N_B(u) &amp;= \left[N_A(0)u + C\right]e^{-u}.\end{split}\]</div>
+<p>Plugging in the stated initial conditions we have</p>
+<div class="math notranslate nohighlight">
+\[N_B(u) = \left[N_A(0) u + N_B(0)\right] e^{-u}.\]</div>
+<p>Now we get to see what happens.  Below, I present a batch of plots.  In
+each cell, the top figure plots the numeric and exact results for
+<span class="math notranslate nohighlight">\(N_A(u)\)</span> and <span class="math notranslate nohighlight">\(N_B(u)\)</span> with <span class="math notranslate nohighlight">\(u=t/\tau_A\)</span>.  The bottom
+plot in each cell is the error at each time step.  All figure share a
+common X-axis and each row shares a Y-axis.  From left to right, we are
+reducing the time step and increasing the number of iterations in the
+simulation.  Going down the column, we are increasing the ratio of the
+time constants <span class="math notranslate nohighlight">\(R\equiv \tau_A/\tau_B\)</span>.</p>
+<div class="figure align-default" id="id5">
+<img alt="../../_images/chapter1_problem4a.png" src="../../_images/chapter1_problem4a.png" />
+<p class="caption"><span class="caption-text">Numerical and exact solutions for chapter 1 problem 4.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+<p>The first thing that jumps out to me is that the error is fairly stable
+with respect to <span class="math notranslate nohighlight">\(R\)</span>.  It does increase with a larger time constant
+ratio, but it is not as large as one might expect.  We see that using a
+time step of <span class="math notranslate nohighlight">\(\Delta u = 0.001\)</span> yields fairly accurate results for
+all cases.  We could increase the accuracy by increasing the number of
+iterations, but I got impatient and killed the calculation.  We have
+more interesting things to do!</p>
+<p>Generally speaking, we see that the population <span class="math notranslate nohighlight">\(N_B\)</span> has a form
+similar to the Planck blackbody curve.  A quick glance at the equations
+does not really reveal an specific relation.  I suspect that this is
+just a random occurrence.  Many equations in physics that bear a
+superficial similarity.  We also see that when <span class="math notranslate nohighlight">\(N_A\)</span> decays faster
+than <span class="math notranslate nohighlight">\(N_B\)</span>, we get a strong surge in the population of
+<span class="math notranslate nohighlight">\(N_B\)</span>.  This is true when both decay at the same rate as well.
+I’m sure as I stare at this figure some more, I will come up with other
+things to say.  But for now, I’m calling it quits.  Oh, and for
+estimating the short and long term behavior, after looking at the graphs
+it’s trivially easy.  There is a power law increase in <span class="math notranslate nohighlight">\(N_B\)</span> and
+power law decrease in <span class="math notranslate nohighlight">\(N_A\)</span> at the early times followed by an
+exponential decay at long times.</p>
+</div>
+<div class="section" id="problem-5">
+<h3>Problem 5<a class="headerlink" href="#problem-5" title="Permalink to this headline">¶</a></h3>
+<p>And on to the next challenging problem.  First and foremost, we don’t
+need to go for the simplicity stated in the problem.  We can keep our
+solution general and play around with the ratio of time constants.  The
+first thing we need to do is recast the problem to remove the units.  To
+do this, we introduce the ratio of time constant <span class="math notranslate nohighlight">\(R=\tau_A/\tau_B\)</span>
+as in the previous problem.  This in turn transforms our problem int the
+set of equations</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f'(u) &amp;= -f(u) + Rg(u) \\
+g'(u) &amp;=  f(u) - Rg(u)\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(f\)</span> is the population of A and <span class="math notranslate nohighlight">\(g\)</span> is the population
+of B.  This is mainly to save me some typing.  Now we can turn this
+system of equations over to a mathematician and get an answer!</p>
+<p>Now for a brief aside about removing the units.  In the above equation,
+we are working with a scaled time parameter <span class="math notranslate nohighlight">\(u=t/\tau_A\)</span> and the
+time constant ratio <span class="math notranslate nohighlight">\(R\)</span>.  One thing my first quantum mechanics
+professor pointed out is that you <em>always</em> want to work with unitless
+variables.  The scale factors you find turn out to be very important in
+determining relative properties of the problem.  He mentioned this while
+we were studying the simple harmonic oscillator system.  There, the
+solution can be studied in a general sense simply with <span class="math notranslate nohighlight">\(x_0\)</span> and
+<span class="math notranslate nohighlight">\(p_0\)</span>.  The net result is the units are where the physics exists.</p>
+<p>Before we get to the numeric solution, we can actually find an analytic
+solution to these equations.  We don’t really need it for the problem,
+but it is good to evaluate the error in out solution.  Also, it gives me
+a chance to brush up on my differential equations.  First, we write
+<span class="math notranslate nohighlight">\(f\)</span> in terms of <span class="math notranslate nohighlight">\(g\)</span> and take the derivative</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f &amp;= g' + Rg
+\\
+f' &amp;= g'' + Rg' &amp;= Rg - (g' + Rg)
+\\
+\rightarrow 0 &amp;= g'' + (R+1)g'.\end{split}\]</div>
+<p>Now we introduce our proposed solution <span class="math notranslate nohighlight">\(g = e^{mu}\)</span> and plug it in.
+This gives us the equation</p>
+<div class="math notranslate nohighlight">
+\[m(m + R + 1) = 0\]</div>
+<p>with the solutions <span class="math notranslate nohighlight">\(m=0\)</span> and <span class="math notranslate nohighlight">\(m=-R-1\)</span>.  Taking a linear
+combination of the two solutions we find</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}g(u) &amp; = C_1 e^{-(R+1)u} + C_2
+\\
+g'(u) &amp;= -C_1(R+1)e^{-(R+1)u}.\end{split}\]</div>
+<p>Now, if we take <span class="math notranslate nohighlight">\(f(0) = A\)</span> and <span class="math notranslate nohighlight">\(g(0) = B\)</span>, we can plug these
+in to find</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}g(u) &amp;= \frac{A - RB}{R+1} \left(1 - e^{-(R+1)u}\right) + B
+\\
+f(u) &amp;= \frac{A - RB}{R+1} \left(R + e^{-(R+1)u}\right) + RB.\end{split}\]</div>
+<p>(The algebra isn’t that hard if you really want to work through it.)
+Adding these two solutions readily shows that the population at any time
+is <span class="math notranslate nohighlight">\(f+g = A+B\)</span> as expected.  Additionally, we can see the long
+term behavior should be</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\lim_{u\to\infty} f(u) &amp; = \frac{R}{R+1}(A + B)
+\\
+\lim_{u\to\infty} g(u) &amp; = \frac{1}{R+1}(A + B).\end{split}\]</div>
+<p>So, if the time constants are equal, we get equal populations in both
+states.  On the other hand, if population A decays slower than B
+(<span class="math notranslate nohighlight">\(R &gt; 1\)</span>), we will have a larger population is A than B.  We have
+no real reason to consider the case where A decays faster than B because
+we can simply get that by swapping the two states.  Now that we have the
+theory and math done, let’s write some code.</p>
+<p>Well, that took longer than it should have.  The main reason was I was
+trying to generate a figure with the number of steps I was using for the
+number of rows and not the number of populations.  Lesson: Always make
+sure you’re using the correct parameters.  Stupid mistake…</p>
+<p>On to the show!  First, we consider when the ratio of the time constants
+is the same <span class="math notranslate nohighlight">\(R=1\)</span>.  Playing around with the number of steps, I
+found 10000 to work just fine.  The error is proportional to the number
+of steps.  Doubling the number of steps used halves the error.  Below, I
+present the population, derivative of the population, and the error in
+each column.</p>
+<div class="figure align-default" id="id6">
+<img alt="../../_images/chapter1_problem5a.png" src="../../_images/chapter1_problem5a.png" />
+<p class="caption"><span class="caption-text">Numerical and exact solutions for chapter 1 problem 5.</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
+<p>Looking at this, we see that the result is boring.  The two states decay
+into a state where they are exchanging member equally.  Normally, I
+would propose looking at the others, but the result is the same.  Those
+systems just end at a different population distribution governed by the
+ratio <span class="math notranslate nohighlight">\(R\)</span>.  We do see that the numerical value of the derivative
+goes to zero as expected.  Unfortunately, this problem only gave me an
+exercise in debugging and creating plots.  Time to move on.</p>
+</div>
+<div class="section" id="problem-6">
+<h3>Problem 6<a class="headerlink" href="#problem-6" title="Permalink to this headline">¶</a></h3>
+<p>And now on to the final problem of the chapter.  First off, performing
+the exercise of error analysis using the <span class="math notranslate nohighlight">\(b=0\)</span> case is pointless.
+It is simply exponential growth, and we did that analysis for problems 1
+and 2.  Now for a figure:</p>
+<div class="figure align-default" id="id7">
+<img alt="../../_images/chapter1_problem6.png" src="../../_images/chapter1_problem6.png" />
+<p class="caption"><span class="caption-text">Numerical and exact solutions for chapter 1 problem 6.</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</div>
+<p>Looking at this, we see that the long term behavior of the population is
+to converge to the value <span class="math notranslate nohighlight">\(N=a/b\)</span>.  This can be verified as the
+expected behavior from the outset by setting the derivative to 0 and
+solving for the population.  To further the analogy to a population, we
+see that the population will grow until it maximizes the resources
+available.  At that point, the population cannot sustain additional
+growth without losing members.  On the other hand, if the population
+exceeds its resources, the limited supply will force members out until
+the resources can sustain the remaining population.</p>
+</div>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
+<p>With that said, we have reached the end of chapter 1.  Looking at this
+post, I see that it got rather long.  To that end, I will start by
+breaking the chapters into individual posts.  At some point in the near
+future, I will get to work on chapter 2.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Taking another look at these figures while migrating my
+website, I see a major error that I admonish both my colleagues and
+students about: The figures are not crafted for the target space.
+Notice how hard it is to read the labels.  This is indicative of
+<em>not</em> paying attention to how the figure will be used (i.e. relying
+on scaling to make the figure fit).  If the target width is 5 in.,
+then tell your plotting utility to generate a 5 in. figure.  If the
+space is 500 px, then use 500 px and set the fonts correctly.  If
+your plotting utility cannot do this, get a better plotting utility.</p>
+</div>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>N. J. Giordano and H. Nakanishi, <em>Computational Physics</em> (Pearson,
+Upper Saddle River, NJ, 2006), Ed. 2.</p></li>
+</ol>
+<dl class="citation">
+<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id1">f1</a></span></dt>
+<dd><p>It’s a git repository now because mercurial didn’t update to Python 3</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+  </div>
+  <div class="by-line" id="by-line">
+    <p>Keith F. Prussing, Ph.D.
+        on 2015-11-28</p>
+  </div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+</div>
+      <div class="clearer"></div>
+    </div>
+  <div class="wrapper-footer">
+    <div class="kpruss-container">
+      <footer class="footer">
+          <a href="mailto: kprussing74@gmail.com">
+              <img src="../../_static/email.svg" alt="email">
+          </a>
+          <a href="https://github.com/kprussing">
+              <img src="../../_static/github.svg" alt="GitHub">
+          </a>
+          <a href="https://linkedin.com/in/kprussing">
+              <img src="../../_static/linkedin.png" alt="LinkedIn" width="40px" height="40px">
+          </a>
+          <a href="https://stackoverflow.com/users/4249913">
+              <img src="../../_static/stackoverflow.svg" alt="Stack Overflow">
+          </a>
+        
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Keith F Prussing, Ph.D..
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
+    </div>
+      </footer>
+    </div>
+  </div>
+  </body>
+</html>

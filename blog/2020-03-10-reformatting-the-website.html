@@ -1,0 +1,262 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta content="Pandoc, Markdown, LaTeX, reStructuredText" name="keywords" />
+
+    <title>Reformatting my Website &#8212; Computational Physicist in Atlanta. GA  documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/kpruss.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Notes on writing a GCC plugin" href="2018-01-18-gcc-plugin-notes.html" />
+    <link rel="prev" title="An Open Letter to the Mayor and City Council of Doraville, GA" href="2020-06-an-open-letter-to-council.html" /> 
+  </head><body>
+<div class="wrapper-masthead">
+  <div class="kpruss-container">
+    <header class="masthead clearfix">
+        <a href="../index.html" class="site-avatar"><img src="https://avatars.githubusercontent.com/kprussing" /></a>
+
+      <div class="site-info">
+          <h1 class="site-name">
+            <a href="../index.html">Keith F Prussing, Ph.D.</a>
+          </h1>
+          <p class="site-description">Computational Physicist in Atlanta. GA</p>
+      </div>
+
+      
+  <nav>
+    <a href="../index.html">Home</a>
+    <a href="../about.html">About</a>
+    <a href="index.html">Blog</a>
+    <a href="../fun/index.html">Fun</a>
+    <a href="../resume/index.html">Resume</a>
+  </nav>
+  
+    </header>
+  </div>
+</div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Reformatting my Website</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#first-attempt-using-latex">First Attempt: Using LaTeX</a></li>
+<li><a class="reference internal" href="#second-attempt-move-to-sphinx-and-restructuredtext">Second Attempt: Move to Sphinx and reStructuredText</a></li>
+<li><a class="reference internal" href="#third-attempt-just-use-pandoc-and-scons">Third Attempt: Just use Pandoc and SCons</a></li>
+<li><a class="reference internal" href="#conclusions">Conclusions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="2020-06-an-open-letter-to-council.html"
+                        title="previous chapter">An Open Letter to the Mayor and City Council of Doraville, GA</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="2018-01-18-gcc-plugin-notes.html"
+                        title="next chapter">Notes on writing a GCC plugin</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/blog/2020-03-10-reformatting-the-website.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+        </div>
+      </div>
+
+    <div class="document">
+<div class="kpruss-container">
+  
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="post">
+    
+  <div class="section" id="reformatting-my-website">
+<h1>Reformatting my Website<a class="headerlink" href="#reformatting-my-website" title="Permalink to this headline">¶</a></h1>
+<div class="abstract docutils container">
+<p>I recently decided I wanted to update my website with a new post.  But
+the post I wanted to write was too complicated to keep in a single
+post.  That’s when I discovered that Jekyll isn’t quite up to the task
+of managing my website as it grows.  This is a post about how I
+migrated to a new static site generation process.</p>
+</div>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>As you may have noticed, I recently decided that Jeykll was not quite up
+to the task of generating my website based on the content I wanted to
+write.  The main problem was I was exploring <a class="reference external" href="linktothepost">Bison and flex</a> for
+parsing an input file at work.  So, I decided I would write a post.  In
+the process of writing, I decided to write code snippets.  But, I wanted
+to make sure the snippets actually compiled and didn’t want to copy the
+code between files.</p>
+<p>This is my problem.  I come from the world of LaTeX where I can easily
+write stand alone code and just use <a class="reference external" href="https://ctan.org/pkg/listings?lang=en">listings</a> to include the file in the
+code.  Searching the internet turned up no simple way to do this with
+Jekyll.  All of the methods I could find required forcing Jekyll to do
+something is wasn’t designed to do.  After all, one of its goals is to
+make simple blogs simple to write.  The post I wanted to write was just
+too complicated.</p>
+<p>Thus, I decided to explore other options for generating my website.
+Obviously, the primary goal was to allow me to write in a way that feels
+more natural.  But, I could also address a few items that I wasn’t
+really wild about with how I had been using Jekyll before like the date
+being only in the file name, the arbitrary way I had been creating the
+posts landing page by looking for a comment, the fact that I had
+unfinished posts under the <code class="docutils literal notranslate"><span class="pre">_posts</span></code> directory, and Jekyll has no clear
+way to add additional build steps like image generation.  This note
+reviews my findings on converting to the new system of using <a class="reference external" href="https://pandoc.org">Pandoc</a> and
+<a class="reference external" href="https://scons.org">SCons</a> to generate my website.</p>
+</div>
+<div class="section" id="first-attempt-using-latex">
+<h2>First Attempt: Using LaTeX<a class="headerlink" href="#first-attempt-using-latex" title="Permalink to this headline">¶</a></h2>
+<p>As you may have expected, my first attempt was to just write in LaTeX.
+This had the advantage that I am already very comfortable writing in
+LaTeX.  Additionally, I have developed an hobbyist interest in
+typesetting and teaching LaTeX how to do interesting things with a
+document’s content.  A major plus for me was I could use my favorite
+build tool SCons to manage building not only the document, but the
+code samples that were the impetus for this change.  I could have used
+<code class="docutils literal notranslate"><span class="pre">latexmk</span></code>, but I find it does not do as good of a job deducing an
+included file has changed compared to SCons.</p>
+<p>So, I wrote the article.  I gained a better understanding of Bison and
+flex and how to use them and the parser wasn’t half bad.  But then I
+thought more about the problem and decided the file really needed
+something more like YAML to store the data, and I wasn’t about to write
+that kind of parser.  In the end, I committed my writing, looked at the
+nicely typeset PDF, and started trying to figure out how to translate
+that into an HTML version to post.</p>
+<p>My preliminary search turned up a few contenders: <a class="reference external" href="https://ctan.org/pkg/make4ht?lang=en">make4ht</a>, <a class="reference external" href="https://ctan.org/pkg/lwarp?lang=en">lwarp</a>,
+<a class="reference external" href="https://jaspervdj.be/hakyll/">Hakyll</a>, and Pandoc.  Make4ht and lwarp both have the advantage of being
+part of TeXLive so they had nothing additional to install.  However, I
+couldn’t really get either to work.  Make4ht needs to transfer through
+<code class="docutils literal notranslate"><span class="pre">latex</span></code> which caused problems with building the PDF version of the
+output, and lwarp was not able to properly handle <code class="docutils literal notranslate"><span class="pre">lstinputfile</span></code> to
+add my code snippets.  I came across Hakyll, but noticed it uses Pandoc
+to parse the LaTeX.  I happen to know from experience that Pandoc is not
+a good front end for moderately complex LaTeX documents.  It has a bad
+habit of dropping significant blocks.</p>
+</div>
+<div class="section" id="second-attempt-move-to-sphinx-and-restructuredtext">
+<h2>Second Attempt: Move to Sphinx and reStructuredText<a class="headerlink" href="#second-attempt-move-to-sphinx-and-restructuredtext" title="Permalink to this headline">¶</a></h2>
+<p>With LaTeX being too much to convert to HTML, it was back to the
+internet for me.  I started toying with the idea of <a class="reference external" href="http://asciidoctor.org/">Asciidoctor</a>, but I
+wasn’t convinced about its build system.  The syntax is reasonable, but
+I wanted more.  This lead me back to reStructuredText and <a class="reference external" href="https://sphinx-doc.org">Sphinx</a>.  I
+use reStructuredText frequently in my Python docstrings and side
+projects.  I would use it more at work, but it turns out Atlassian’s
+enterprise version of Bitbucket (i.e. the one you pay lots of money for)
+does not support reStructuredText rendering README which is annoying.</p>
+<p>I really like reStructuredText.  It’s the markup used in may Python
+packages.  It is very minimal in running text and the blocks are clearly
+delimited.  I want to use it for a project or task, but the build tools
+just make it too complicated.  Sphinx is arguably the defacto
+reStructuredText processing engine.  It is Python (yay!) and very
+customizable, but I find the templates to rigid.  They are focused on
+documentation which is great, but I don’t want a search bar or index.  I
+started working on a theme, but trying to get the layout I wanted was
+just too complicated.  Couple that with make being the default build
+tool and I decided to backup and take another search around.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Update 2021-03-28: And it turns out I just wasn’t trying hard
+enough.  I managed to create a <a class="reference external" href="https://kprussing.github.io/kpruss">template</a> of my own so I could use it
+for my side projects.  That led me to reformat my website again.</p>
+</div>
+</div>
+<div class="section" id="third-attempt-just-use-pandoc-and-scons">
+<h2>Third Attempt: Just use Pandoc and SCons<a class="headerlink" href="#third-attempt-just-use-pandoc-and-scons" title="Permalink to this headline">¶</a></h2>
+<p>Ultimately, I decided to just stick with Markdown and just use Pandoc to
+actually generate the website.  Coupling it with SCons (using my handy
+<a class="reference external" href="tool">Pandoc tool</a>) means I can easily drop additional steps in the
+build chain to auto generate pages or images.  Additionally, the filter
+system allows me to easily insert content based on the metadata using
+the full power of Python (or Hakell or Lua).  Further, I find the Pandoc
+templates are quite a bit cleaner than the Jinja templates of Sphinx.</p>
+<p>I did discover that one of my problems with Sphinx was my limited
+knowledge of CSS.  Some of the formatting details I was struggling with
+were still there using Pandoc.  It turns out the Jekyll template I was
+using relied heavily on SASS which I didn’t know about.  A little more
+study will allow me to unravel that dependency and give me a chance to
+customize the output more.</p>
+<p>The final challenge we getting GitHub to properly display the pages.  I
+attempted to use the <code class="docutils literal notranslate"><span class="pre">.nojekyll</span></code> trick that’s listed on the web do
+disable Jekyll, then the pages wouldn’t host from my main folder.  The
+second attempt was to build into Jekyll’s <code class="docutils literal notranslate"><span class="pre">_site</span></code> directory, but that
+didn’t work either.  It turns out that GitHub’s <em>personal</em> pages must be
+processed by Jekyll.  (Apparently, I closed the website where I found
+that nugget of information, but <a class="reference external" href="https://stackoverflow.com/a/27666206/4249913">this answer</a> has some information.
+You can also see it when you compare enabling Jekyll on a personal page
+verses a project page).  My solution was to just move my website to a
+new repository and host it like a project.  I already did this with my
+resume and it works like a charm.</p>
+</div>
+<div class="section" id="conclusions">
+<h2>Conclusions<a class="headerlink" href="#conclusions" title="Permalink to this headline">¶</a></h2>
+<p>So here we are.  I have migrated to using Pandoc and SCons to generate
+the website.  Pandoc allows me to embed additional metadata into the
+posts and potentially look into generating PDF versions from a common
+source while SCons allows me to add additional build logic to keep my
+sources clean.  All of the changes I attempted are archived in the
+<a class="reference external" href="http://github.com/kprussing/kprussing.github.io">original git repository</a> for the website under branches.  They may
+have some useful tips for those interested, but they are more likely to
+keep me from redoing the initial setup in the future.  The only other
+steps are to add a hook to build the website locally when pushing and
+then get back to writing.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Update 2021-03-28: I also went back to using the original
+repository so I can easily link to my resume and side projects.</p>
+</div>
+</div>
+</div>
+
+
+  </div>
+  <div class="by-line" id="by-line">
+    <p>Keith F. Prussing, Ph.D.
+        on 2020-03-10</p>
+  </div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+</div>
+      <div class="clearer"></div>
+    </div>
+  <div class="wrapper-footer">
+    <div class="kpruss-container">
+      <footer class="footer">
+          <a href="mailto: kprussing74@gmail.com">
+              <img src="../_static/email.svg" alt="email">
+          </a>
+          <a href="https://github.com/kprussing">
+              <img src="../_static/github.svg" alt="GitHub">
+          </a>
+          <a href="https://linkedin.com/in/kprussing">
+              <img src="../_static/linkedin.png" alt="LinkedIn" width="40px" height="40px">
+          </a>
+          <a href="https://stackoverflow.com/users/4249913">
+              <img src="../_static/stackoverflow.svg" alt="Stack Overflow">
+          </a>
+        
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Keith F Prussing, Ph.D..
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
+    </div>
+      </footer>
+    </div>
+  </div>
+  </body>
+</html>

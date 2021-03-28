@@ -1,0 +1,328 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Writing in the Terminal &#8212; Computational Physicist in Atlanta. GA  documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/kpruss.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="You’re up and running!" href="2014-09-17-Hello-World.html" />
+    <link rel="prev" title="Least Squares Fitting" href="2014-09-27-least-squares.html" /> 
+  </head><body>
+<div class="wrapper-masthead">
+  <div class="kpruss-container">
+    <header class="masthead clearfix">
+        <a href="../index.html" class="site-avatar"><img src="https://avatars.githubusercontent.com/kprussing" /></a>
+
+      <div class="site-info">
+          <h1 class="site-name">
+            <a href="../index.html">Keith F Prussing, Ph.D.</a>
+          </h1>
+          <p class="site-description">Computational Physicist in Atlanta. GA</p>
+      </div>
+
+      
+  <nav>
+    <a href="../index.html">Home</a>
+    <a href="../about.html">About</a>
+    <a href="index.html">Blog</a>
+    <a href="../fun/index.html">Fun</a>
+    <a href="../resume/index.html">Resume</a>
+  </nav>
+  
+    </header>
+  </div>
+</div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Writing in the Terminal</a><ul>
+<li><a class="reference internal" href="#writing-with-markdown">Writing with Markdown</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#running-pandoc">Running <code class="docutils literal notranslate"><span class="pre">pandoc</span></code></a></li>
+<li><a class="reference internal" href="#customizing-the-output">Customizing the Output</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#editing-on-the-command-line">Editing on the Command Line</a><ul>
+<li><a class="reference internal" href="#working-with-aspell">Working with <code class="docutils literal notranslate"><span class="pre">aspell</span></code></a></li>
+<li><a class="reference internal" href="#checking-the-grammar">Checking the grammar</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="2014-09-27-least-squares.html"
+                        title="previous chapter">Least Squares Fitting</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="2014-09-17-Hello-World.html"
+                        title="next chapter">You’re up and running!</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/blog/2014-09-17-writing-with-markdown.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+        </div>
+      </div>
+
+    <div class="document">
+<div class="kpruss-container">
+  
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="post">
+    
+  <div class="section" id="writing-in-the-terminal">
+<h1>Writing in the Terminal<a class="headerlink" href="#writing-in-the-terminal" title="Permalink to this headline">¶</a></h1>
+<div class="abstract docutils container">
+<p>So, I have been writing with plain text files for a while.  I’ve
+plaid around with HTML and LaTeX extensively.  Once I discovered the
+joys of vim, I slowly began to do all of my editing within a
+terminal emulator.  Initially, I worked directly with the before
+mentioned markup languages.  Recently, I learned about <a class="reference external" href="http://johnmacfarlane.net/pandoc/">Pandoc</a> and
+that let me give up on HTML by using <a class="reference external" href="http://daringfireball.net/projects/markdown/syntax">Markdown</a>, but I still wrote
+my scientific papers directly with LaTeX.  Now I think it is time to
+make the full switch.</p>
+</div>
+<div class="section" id="writing-with-markdown">
+<h2>Writing with Markdown<a class="headerlink" href="#writing-with-markdown" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>I no longer really use or recommend using Markdown to do serious
+writing (as of 2020-02-02).  Ultimately, Markdown is good for short
+notes or very simple documents, but I kept finding myself writing
+filters to actually get Pandoc to do what I need it to do.  To add
+insult to injury, Pandoc is <em>not</em> a full LaTeX parser.  I kept
+finding myself having to work around its limitations by inserting
+LaTeX directly into the file which defeats the purpose.  My solution
+has been to just use LaTeX directly (or Word when I have to,
+although I will write a draft in Markdown and use Pandoc to do the
+initial conversion).</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>I have also started using reStructuredText more since it is more
+emenable to extension.</p>
+</div>
+<p>So, I have come to the realization that LaTeX is not the best way to
+write.  By the looks of it, I am not the <a class="reference external" href="http://blog.martinfenner.org/2013/06/17/what-is-scholarly-markdown/">first</a> or <a class="reference external" href="http://recurrentprocessing.blogspot.fi/2013/02/write-academic-papers-with-markdown.html">second</a>, and I
+probably won’t be the last.  Thankfully, with the emergence of
+<a class="reference external" href="http://commonmark.org">CommonMark</a>, I can possibly make some head way.  The beauty of <a class="reference external" href="http://daringfireball.net/projects/markdown/syntax">Markdown</a>
+is the readability of the source file.  I am a big fan of splitting
+content and format.  I already live in the command line so the plain
+text files makes my life easier.  By using <code class="docutils literal notranslate"><span class="pre">pandoc</span></code>, I can convert to
+HTML, PDF, or Word, but the challenge is getting the citations in place.
+This documents my path to getting the citations to work with <code class="docutils literal notranslate"><span class="pre">pandoc</span></code>.</p>
+<div class="section" id="installation">
+<h3>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
+<p>The first order of business is to get things installed.  I’m on OS X, so
+I use <a class="reference external" href="http://www.macports.org">MacPorts</a>.  To get <code class="docutils literal notranslate"><span class="pre">pandoc</span></code> we simply call:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo port install pandoc
+</pre></div>
+</div>
+<p>According to the manual, to add a bibliography, I need
+<code class="docutils literal notranslate"><span class="pre">pandoc-citeproc</span></code>, but it does not appear to be in MacPorts.  Rooting
+around on the <a class="reference external" href="https://github.com/jgm/pandoc-citeproc">repository</a>, it appears that this has been recently
+removed from <code class="docutils literal notranslate"><span class="pre">pandoc</span></code>.  This would explain why it is not evident.  So,
+we go directly to the Haskell method:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo port install haskell-platform # To get cabal
+$ cabal install pandoc-citeproc
+</pre></div>
+</div>
+<p>And then simply add <code class="docutils literal notranslate"><span class="pre">~/.cabal/bin</span></code> to your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.</p>
+</div>
+<div class="section" id="running-pandoc">
+<h3>Running <code class="docutils literal notranslate"><span class="pre">pandoc</span></code><a class="headerlink" href="#running-pandoc" title="Permalink to this headline">¶</a></h3>
+<p>Now to try to make a test case:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat test.text
+
+A Title
+=======
+
+And they said stuff @narayanasway_thermal_2008.
+
+$ cat reference.bib
+
+@article{narayanaswamy_thermal_2008,
+        title = {Thermal near-field radiative transfer between two spheres},
+        volume = {77},
+        url = {http://link.aps.org/doi/10.1103/PhysRevB.77.075125},
+        doi = {10.1103/PhysRevB.77.075125},
+        number = {7},
+        journal = {Physical Review B},
+        author = {Narayanaswamy, Arvind and Chen, Gang},
+        month = feb,
+        year = {2008},
+        pages = {075125},
+}
+
+$ pandoc test.text -o test.pdf \
+&gt; --bibliography=./reference.bib --csl=physical-review-b.csl
+</pre></div>
+</div>
+<p>And this gives me a lovely PDF!  Granted, none of this is really new.</p>
+</div>
+<div class="section" id="customizing-the-output">
+<h3>Customizing the Output<a class="headerlink" href="#customizing-the-output" title="Permalink to this headline">¶</a></h3>
+<p>Now, what if I want to use a specific format such a that for PRB? I
+could possibly use the <code class="docutils literal notranslate"><span class="pre">--reference-docx=FILE</span></code> option if the journal
+offers that; however, PRB does not.  The <code class="docutils literal notranslate"><span class="pre">-H</span> <span class="pre">FILE</span></code> flag will be useful
+for adding in the preamble if necessary.  I think I might be able to use
+the <code class="docutils literal notranslate"><span class="pre">.sty</span></code> file from the publisher, but that won’t let us set the
+options to <code class="docutils literal notranslate"><span class="pre">documentclass</span></code>.  I think the ultimate answer will be to
+generate the <code class="docutils literal notranslate"><span class="pre">.latex</span></code> and then hand hack it to set the document class
+correctly.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pandoc --standalone test.text -o test.latex -H preamble.tex
+$ vim test.latex # Fix the document class
+$ pdflatex test
+$ bibtex test
+$ pdflatex test
+$ pdflatex test
+</pre></div>
+</div>
+<p>And now I should have a nice PDF in the desired format!</p>
+<p>At the time of writing this (2014-09-17), I have not actually used this
+part as a work flow.  I really hope this works.</p>
+</div>
+</div>
+<div class="section" id="editing-on-the-command-line">
+<h2>Editing on the Command Line<a class="headerlink" href="#editing-on-the-command-line" title="Permalink to this headline">¶</a></h2>
+<p>Now that I have a way to write neat files, I need to worry about
+editing.  This derives from my attempt to create an editing work flow
+for my thesis.  I read through the silly thing and marked it up with my
+trusty red pen.  I was then stuck with how to automate searching for
+misspellings and blatant grammatical errors.  As I mentioned above, at
+this point I was still using LaTeX so I had a bunch of plain text files
+that I didn’t really want to convert to something like Word just to get
+the automated grammar and spelling checkers.  A web search turned up
+<a class="reference external" href="http://tex.stackexchange.com/questions/6333/grammar-checking-tool-for-use-with-latex">this</a> discussion and one of the answers was the <a class="reference external" href="http://dsl.org/cookbook/cookbook_15.html#SEC220">Writer’s Workbench</a>.
+The specific tools that looked promising are <code class="docutils literal notranslate"><span class="pre">aspell</span></code> and <code class="docutils literal notranslate"><span class="pre">diction</span></code>.
+And the bonus is that both are on MacPorts!</p>
+<div class="section" id="working-with-aspell">
+<h3>Working with <code class="docutils literal notranslate"><span class="pre">aspell</span></code><a class="headerlink" href="#working-with-aspell" title="Permalink to this headline">¶</a></h3>
+<p>Here is the real trick: how do I get spell checking to work
+intelligently?  According to the <code class="docutils literal notranslate"><span class="pre">info</span></code> page, it is as simple as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ aspell check file.text
+</pre></div>
+</div>
+<p>However, the trick is the author names and technical jargon gets in the
+way.  I could just add each one to the dictionary; however, I don’t
+really want to pollute a personal dictionary with project specific words
+that I may never use again.  It’s one thing if <em>my</em> name is in there,
+but often, many names I will never reference again.  So, I need a
+project specific list of words.</p>
+<p>First, we tackle the author names.  I am using <a class="reference external" href="https://www.zotero.org">Zotero</a> to manage my
+bibliography.  This allows me to keep organized and has an option to
+export to a BibTex file!  It is plain text, so it can easily be parsed
+to find the author names.  We just have to look for the <code class="docutils literal notranslate"><span class="pre">author</span></code>
+fields and parse what is within the <code class="docutils literal notranslate"><span class="pre">{}</span></code>.  The trick was splitting on
+the <code class="docutils literal notranslate"><span class="pre">and</span></code> token.  A blind tokenizing on <code class="docutils literal notranslate"><span class="pre">and</span></code> leads to breaking the
+occasional name.  The workaround was to split at the spaces and collect
+the full names together.  Care was needed when a name contained <code class="docutils literal notranslate"><span class="pre">and</span></code>,
+but it was manageable.  I made wrote a script <code class="docutils literal notranslate"><span class="pre">ztbib2spl</span></code> for future
+use and put it in my <a class="reference external" href="https://github.com/kprussing/dotfiles">dotfiles</a> scripts folder.</p>
+<p>Now we have a word list of author names to pass to <code class="docutils literal notranslate"><span class="pre">aspell</span></code> to ignore!
+Reading through the documentation, we first need to clean the list of
+bad characters:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ echo &#39;personal_ws-1.1 en 0&#39; &gt; authornames.en.pws
+$ ztbib2spl reference.bib &gt; authornames.text
+$ aspell --lang=en --local-data-dir . clean &lt; authornames.text &gt;&gt; authornames.en.pws
+$ aspell --personal=./authornames.en.pws check file.text
+</pre></div>
+</div>
+<p>The first line above is easy to over look.  I was banging my head
+against the wall for a while until I got it right.  I went through a lot
+of effort to get a binary version or a dictionary.  That
+<code class="docutils literal notranslate"><span class="pre">personal_ws-1.1</span> <span class="pre">en</span> <span class="pre">0</span></code> indicates that this is a personal word list for
+the English language dictionary and the number just needs to be there.
+According to the <code class="docutils literal notranslate"><span class="pre">info</span></code> page, it is supposed to be the number of
+words, but even the documentation says the value does not matter.  Don’t
+miss the <code class="docutils literal notranslate"><span class="pre">--data-dir</span> <span class="pre">.</span></code> flag!  That tells <code class="docutils literal notranslate"><span class="pre">aspell</span></code> to keep the file
+in the current directory.</p>
+</div>
+<div class="section" id="checking-the-grammar">
+<h3>Checking the grammar<a class="headerlink" href="#checking-the-grammar" title="Permalink to this headline">¶</a></h3>
+<p>After we have run the spell checker, we can check for blatantly bad
+grammar with <code class="docutils literal notranslate"><span class="pre">diction</span></code>.  The useful way to do this is to get the
+suggestions with the <code class="docutils literal notranslate"><span class="pre">-s</span></code> flag and pass it to the pager.  I find it
+best to start at the end of the file and work backwards.  This preserves
+the line numbers of the <code class="docutils literal notranslate"><span class="pre">diction</span></code> output so that I can find the
+sentences.  The <code class="docutils literal notranslate"><span class="pre">diction</span></code> tool only looks for blatantly bad grammar,
+so we still need to do the manual revisions as well.  When doing the
+revisions, it is best to work with either <code class="docutils literal notranslate"><span class="pre">diction</span></code> or the hand
+written notes at one time.  When trying to do both, it becomes hard to
+keep track of where you are.</p>
+</div>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
+<p>In this note, I have outlined a way to work within the command line to
+edit plain text files.  The basic work flow is:</p>
+<ol class="arabic simple">
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">aspell</span></code></p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">diction</span></code></p></li>
+<li><p>Print and hand annotate</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">diction</span></code> just to be sure (or not)</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">aspell</span></code></p></li>
+<li><p>Repeat as necessary.</p></li>
+</ol>
+<p>This allows me to remain comfortably in the terminal and working with
+plain text files.</p>
+</div>
+</div>
+
+
+  </div>
+  <div class="by-line" id="by-line">
+    <p>Keith F. Prussing
+        on 2014-09-17</p>
+  </div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+</div>
+      <div class="clearer"></div>
+    </div>
+  <div class="wrapper-footer">
+    <div class="kpruss-container">
+      <footer class="footer">
+          <a href="mailto: kprussing74@gmail.com">
+              <img src="../_static/email.svg" alt="email">
+          </a>
+          <a href="https://github.com/kprussing">
+              <img src="../_static/github.svg" alt="GitHub">
+          </a>
+          <a href="https://linkedin.com/in/kprussing">
+              <img src="../_static/linkedin.png" alt="LinkedIn" width="40px" height="40px">
+          </a>
+          <a href="https://stackoverflow.com/users/4249913">
+              <img src="../_static/stackoverflow.svg" alt="Stack Overflow">
+          </a>
+        
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Keith F Prussing, Ph.D..
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
+    </div>
+      </footer>
+    </div>
+  </div>
+  </body>
+</html>
