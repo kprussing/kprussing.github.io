@@ -1,8 +1,15 @@
----
-title: An Open Letter to the Mayor and City Council of Doraville, GA
-author: Keith F. Prussing, Ph.D.
-date: 2020-06-07
-abstract: >
+:author: Keith F. Prussing, Ph.D.
+:date: 2020-06-07
+:template: post.html
+
+.. meta::
+   :keywords: Black Lives Matter, George Floyd, Ahmaud Arbery, Breonna Taylor, Too damn many more
+
+An Open Letter to the Mayor and City Council of Doraville, GA
+=============================================================
+
+.. container:: abstract
+   
     The events of the past week have made me take stock and reflect on
     what part I have played in the over all structure of our society.
     The answer I arrived at was: I'm awful because I haven't done
@@ -10,14 +17,6 @@ abstract: >
     actions of others, but I have not taken any real action.  I may have
     commiserated with others that already agree with me, but that is not
     enough.
-category: post
-keywords: >
-    Black Lives Matter,
-    George Floyd,
-    Ahmaud Arbery,
-    Breonna Taylor,
-    Too damn many more
-...
 
 Mayor Geierman and Council Members Yeoman, Henshaw, Morris, Koontz, and Alexander,
 
@@ -36,13 +35,13 @@ to be clouded by my pitiful attempts to paraphrase.  I believe we should
 act and act swiftly to send a strong statement that this type of
 behavior will not be tolerated in Doraville.
 
-::: aside
-If these were the actions
-of a citizen, we would be using terms like “aggravated assault,” or
-“aggravated battery,” or even “aggravated manslaughter” which are
-felonies (I learned more than I ever wanted to know about these terms
-serving as a juror on a murder trial).
-:::
+.. container:: aside
+
+    If these were the actions of a citizen, we would be using terms like
+    “aggravated assault,” or “aggravated battery,” or even “aggravated
+    manslaughter” which are felonies (I learned more than I ever wanted
+    to know about these terms serving as a juror on a murder trial).
+
 
 I also heard over the weekend that an effort to repeal the state's
 citizen’s arrest and “stand you ground” laws is under way.  I believe it
@@ -62,4 +61,3 @@ a moral leader in DeKalb.  We have already paved the way by adopting the
 non-discrimination ordinance.  Let us keep the momentum going by showing
 the county, state, and the country that Doraville has heard the voices
 of the people and will act.
-

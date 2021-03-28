@@ -1,8 +1,12 @@
----
-title: Getting PyTables to Play Nice with Windows
-date: 2015-08-10
-author: Keith F. Prussing, Ph.D.
-abstract: >
+:author: Keith F. Prussing, Ph.D.
+:date: 2015-08-10
+:template: post.html
+
+Getting PyTables to Play Nice with Windows
+==========================================
+
+.. container:: abstract
+
     I originally started this as a wiki page on my fork of ViTables.
     After trying to understand why ViTables would crash on some Windows
     boxes but not others, I found out that it had nothing to do with
@@ -11,8 +15,6 @@ abstract: >
 
     **tl;dr**: Your Python installation on Windows is stupid and needs
     to be reinstalled.
-post: true
----
 
 Running Notes
 -------------
@@ -21,7 +23,7 @@ So, apparently something screwy is going on with Python on Windows.
 Everything seems to work just dandy fine on other systems.  Digging
 around, it appears that the problem is isolated _exclusively_ in the
 Anaconda distribution of Python.  More to the point, the PyTables
-packaging within the Anaconda distribution.  A quick check is to run
+packaging within the Anaconda distribution.  A quick check is to run::
 
     $ python3 -c 'import tables; tables.test()'
 
@@ -33,12 +35,13 @@ complain once.
 Using Anaconda, it runs for about 2.5 lines, but then it pops up a
 window saying "python.exe has stopped working."  Opening up a debug
 instance (after fighting with the community version of Visual Studio
-2015) shows a trace to `netdll.dll` through `hdf5extension.pyd`.
+2015) shows a trace to ``netdll.dll`` through ``hdf5extension.pyd``.
 Searching the site-package tree reveals the offending file is in the
-`tables` package. `file` tells me the `.pyd` file is a DLL for Windows,
-but `nm` and `objdump` don't give me any useful information.  I assume
-it should be linking to the HDF5 libraries because PyTables is a simple
-extension of the HDF5 file.  `grep`ing around, I find
+``tables`` package. ``file`` tells me the ``.pyd`` file is a DLL for
+Windows, but ``nm`` and ``objdump`` don't give me any useful
+information.  I assume it should be linking to the HDF5 libraries
+because PyTables is a simple extension of the HDF5 file.  ``grep``\ ing
+around, I find::
 
     $ find Lib -name 'hdf5*' | grep -v '__pycache__'
     ...
@@ -57,7 +60,8 @@ extension of the HDF5 file.  `grep`ing around, I find
     ...
 
 So, the libraries are there, but the runtime cannot find them.  Taking a
-look at the [WinPython](http://winpython.github.io) distribution we find
+look at the `WinPython <http://winpython.github.io>`_ distribution we
+find::
 
     $ find Lib -name 'hdf5*' | grep -v '__pycache__'
     ...
@@ -68,19 +72,19 @@ look at the [WinPython](http://winpython.github.io) distribution we find
 
     $ find libs -name 'hdf5*' | grep -v '__pycache__'
 
-and no Library directory.  The key point is the DLLs are _next to the
-files_.  This is making no sense to me.
+and no Library directory.  The key point is the DLLs are *next to the
+files*.  This is making no sense to me.
 
-Rooting around the internet some more, I come across [the search order
-for DLLs](https://msdn.microsoft.com/en-us/library/7d83bc18.aspx).
-Checking my `PATH` variable, I see that indeed
-`/c/path/to/anaconda/Library/bin` is not on my path.  Thus, the current
-directory approach of WinPython works out of the box.  Trying to add
-this to the path didn't help on the outset
+Rooting around the internet some more, I come across `the search order
+for DLLs <https://msdn.microsoft.com/en-us/library/7d83bc18.aspx>`_.
+Checking my ``PATH`` variable, I see that indeed
+``/c/path/to/anaconda/Library/bin`` is not on my path.  Thus, the
+current directory approach of WinPython works out of the box.  Trying to
+add this to the path didn't help on the outset
 
 And if I go to a computer that has Anaconda installed that I know still
-works, _the DLLS are installed in the `Lib/site-packages/tables`
-directory_!  (I hate Windows sometimes).  I tried reinstalling Anaconda
+works, the DLLS are installed in the ``Lib/site-packages/tables``
+directory!  (I hate Windows sometimes).  I tried reinstalling Anaconda
 using the 2.3.0 version available at the time of writing.  That didn't
 help.
 
@@ -88,11 +92,11 @@ A (Hacked) Solution
 -------------------
 
 It appears like we have to do things the hard way if we want to use
-Anaconda.  First, uninstall PyTables from Anaconda
+Anaconda.  First, uninstall PyTables from Anaconda::
 
     $ conda uninstall pytables
 
-Now, we need to us `pip`
+Now, we need to us ``pip``::
 
     $ pip install tables
 
@@ -111,6 +115,5 @@ A (Real) Solution
 
 A real solution is to just install a version of Python that stashes the
 DLLs somewhere in the modules can find.  Most likely, this will be one
-that installs the libraries into the `site-package/tables` directory
+that installs the libraries into the ``site-package/tables`` directory
 just like WinPython does.
-

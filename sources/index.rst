@@ -9,4 +9,5 @@ call my own.  Feel free to take a look around.
    :caption: Content:
 
    about
+   blog/index
    fun/index
